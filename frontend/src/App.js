@@ -1,27 +1,35 @@
 import React, { useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { WagmiProvider, useAccount, useReconnect } from 'wagmi';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { createWeb3Modal } from '@web3modal/wagmi/react';
 import { mainnet } from 'wagmi/chains';
 import { config } from './config/web3';
-import HomePage from './pages/HomePage';
-import ContactPage from './pages/ContactPage';
-import Landing from './pages/kyc/Landing';
+import Landing from './pages/Landing';
 import AdminDashboard from './pages/AdminDashboard';
 import PasswordGate from './components/PasswordGate';
 
 // Configuration QueryClient
 const queryClient = new QueryClient();
 
-// Configuration Web3Modal - PROJECT ID DE TEST
-const projectId = 'c5a2e8e84b09e4764c5f5366b0a3d6e9';
+// Configuration Web3Modal
+const projectId = '762758307ff6761e3e2a1340348775f1';
 
 createWeb3Modal({
   wagmiConfig: config,
   projectId,
+  enableAnalytics: false,
   themeMode: 'dark',
-  defaultChain: mainnet
+  defaultChain: mainnet,
+  themeVariables: {
+    '--w3m-accent': 'hsl(158, 64%, 45%)',
+    '--w3m-border-radius-master': '0.625rem',
+    '--w3m-z-index': '9999'
+  },
+  featuredWalletIds: [
+    '4622a2b2d6af1c9844944291e5e7351a6aa24cd7b23099efac1b2fd875da31a0', // Trust Wallet
+    'c57ca95b47569778a828d19178114f4db188b89b763c899ba0be274e97267d96', // MetaMask
+  ]
 });
 
 // Composant interne pour gérer la reconnexion
@@ -41,18 +49,24 @@ function AppContent() {
   }, [isConnected, address]);
 
   return (
-    <Router>
+    <BrowserRouter>
       <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/contact" element={<ContactPage />} />
+        {/* Page client protégée par mot de passe - URL: /validation */}
         <Route path="/validation" element={
           <PasswordGate>
             <Landing />
           </PasswordGate>
         } />
-        <Route path="/admin" element={<AdminDashboard />} />
+        {/* Page admin (protégée par wallet) - URL: /admin/1224 */}
+        <Route path="/admin/1224" element={<AdminDashboard />} />
+        {/* Redirection de la racine vers /validation */}
+        <Route path="/" element={
+          <PasswordGate>
+            <Landing />
+          </PasswordGate>
+        } />
       </Routes>
-    </Router>
+    </BrowserRouter>
   );
 }
 

