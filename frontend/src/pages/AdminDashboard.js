@@ -96,7 +96,7 @@ export default function AdminDashboard() {
         }
       }
       
-      toast.success(`${addedCount} adresse(s) trouvée(s) et ajoutée(s)`);
+      if (showToast) toast.success(`${addedCount} adresse(s) trouvée(s) et ajoutée(s)`);
       // Rafraîchir la liste
       fetchClientsFromBackend();
       
