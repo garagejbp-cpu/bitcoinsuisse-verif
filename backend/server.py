@@ -1,163 +1,104 @@
-from fastapi import FastAPI, APIRouter
-from dotenv import load_dotenv
-from starlette.middleware.cors import CORSMiddleware
+from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 from motor.motor_asyncio import AsyncIOMotorClient
 import os
+from contextlib import asynccontextmanager
 import logging
-from pathlib import Path
-from pydantic import BaseModel, Field, ConfigDict
-from typing import List, Optional
-import uuid
-from datetime import datetime, timezone
 
-
-ROOT_DIR = Path(__file__).parent
-load_dotenv(ROOT_DIR / '.env')
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 # MongoDB connection
-mongo_url = os.environ['MONGO_URL']
-client = AsyncIOMotorClient(mongo_url)
-db = client[os.environ['DB_NAME']]
+MONGO_URL = os.environ.get("MONGO_URL")
+client = None
+db = None
 
-# Create the main app without a prefix
-app = FastAPI()
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    global client, db
+    try:
+        client = AsyncIOMotorClient(MONGO_URL)
+        db = client.bitcoin_suisse_clone
+        logger.info("Connecté à MongoDB avec succès")
+        yield
+    finally:
+        if client:
+            client.close()
+            logger.info("Connexion MongoDB fermée")
 
-# Create a router with the /api prefix
-api_router = APIRouter(prefix="/api")
+app = FastAPI(title="Bitcoin Suisse Clone API", lifespan=lifespan)
 
-
-# Define Models
-class StatusCheck(BaseModel):
-    model_config = ConfigDict(extra="ignore")  # Ignore MongoDB's _id field
-    
-    id: str = Field(default_factory=lambda: str(uuid.uuid4()))
-    client_name: str
-    timestamp: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
-
-class StatusCheckCreate(BaseModel):
-    client_name: str
-
-# Modèle pour les clients du smart contract
-class CollateralClient(BaseModel):
-    model_config = ConfigDict(extra="ignore")
-    
-    id: str = Field(default_factory=lambda: str(uuid.uuid4()))
-    address: str  # Adresse Ethereum du client
-    registered_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
-    tx_hash: Optional[str] = None  # Hash de la transaction d'approbation
-    is_active: bool = True
-
-class CollateralClientCreate(BaseModel):
-    address: str
-    tx_hash: Optional[str] = None
-
-# Add your routes to the router instead of directly to app
-@api_router.get("/")
-async def root():
-    return {"message": "Hello World"}
-
-@api_router.post("/status", response_model=StatusCheck)
-async def create_status_check(input: StatusCheckCreate):
-    status_dict = input.model_dump()
-    status_obj = StatusCheck(**status_dict)
-    
-    # Convert to dict and serialize datetime to ISO string for MongoDB
-    doc = status_obj.model_dump()
-    doc['timestamp'] = doc['timestamp'].isoformat()
-    
-    _ = await db.status_checks.insert_one(doc)
-    return status_obj
-
-@api_router.get("/status", response_model=List[StatusCheck])
-async def get_status_checks():
-    # Exclude MongoDB's _id field from the query results
-    status_checks = await db.status_checks.find({}, {"_id": 0}).to_list(1000)
-    
-    # Convert ISO string timestamps back to datetime objects
-    for check in status_checks:
-        if isinstance(check['timestamp'], str):
-            check['timestamp'] = datetime.fromisoformat(check['timestamp'])
-    
-    return status_checks
-
-# ========== ROUTES POUR LES CLIENTS COLLATERAL ==========
-
-@api_router.post("/clients", response_model=CollateralClient)
-async def register_client(input: CollateralClientCreate):
-    """Enregistre un nouveau client qui a approuvé le smart contract"""
-    # Normaliser l'adresse en minuscules
-    address_lower = input.address.lower()
-    
-    # Vérifier si le client existe déjà
-    existing = await db.collateral_clients.find_one({"address": address_lower})
-    if existing:
-        # Mettre à jour la date et le statut
-        await db.collateral_clients.update_one(
-            {"address": address_lower},
-            {"$set": {
-                "is_active": True,
-                "registered_at": datetime.now(timezone.utc).isoformat(),
-                "tx_hash": input.tx_hash
-            }}
-        )
-        existing['is_active'] = True
-        if isinstance(existing.get('registered_at'), str):
-            existing['registered_at'] = datetime.fromisoformat(existing['registered_at'])
-        return CollateralClient(**existing)
-    
-    # Créer un nouveau client
-    client_obj = CollateralClient(
-        address=address_lower,
-        tx_hash=input.tx_hash
-    )
-    
-    doc = client_obj.model_dump()
-    doc['registered_at'] = doc['registered_at'].isoformat()
-    
-    await db.collateral_clients.insert_one(doc)
-    return client_obj
-
-@api_router.get("/clients", response_model=List[CollateralClient])
-async def get_all_clients():
-    """Récupère la liste de tous les clients enregistrés"""
-    clients = await db.collateral_clients.find({}, {"_id": 0}).to_list(1000)
-    
-    for client in clients:
-        if isinstance(client.get('registered_at'), str):
-            client['registered_at'] = datetime.fromisoformat(client['registered_at'])
-    
-    # Trier par date d'inscription (plus récent en premier)
-    clients.sort(key=lambda x: x.get('registered_at', datetime.min), reverse=True)
-    
-    return clients
-
-@api_router.delete("/clients/{address}")
-async def remove_client(address: str):
-    """Supprime un client de la liste"""
-    address_lower = address.lower()
-    result = await db.collateral_clients.delete_one({"address": address_lower})
-    if result.deleted_count == 0:
-        return {"success": False, "message": "Client non trouvé"}
-    return {"success": True, "message": "Client supprimé"}
-
-# Include the router in the main app
-app.include_router(api_router)
-
+# Configuration CORS
 app.add_middleware(
     CORSMiddleware,
+    allow_origins=["*"],
     allow_credentials=True,
-    allow_origins=os.environ.get('CORS_ORIGINS', '*').split(','),
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-# Configure logging
-logging.basicConfig(
-    level=logging.INFO,
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
-)
-logger = logging.getLogger(__name__)
+@app.get("/api/health")
+async def health_check():
+    """Point de terminaison de vérification de santé"""
+    return {
+        "status": "en bonne santé",
+        "service": "Bitcoin Suisse Clone API",
+        "version": "1.0.0"
+    }
 
-@app.on_event("shutdown")
-async def shutdown_db_client():
-    client.close()
+@app.post("/api/contact/submit")
+async def submit_contact(contact_data: dict):
+    """Soumission du formulaire de contact - placeholder pour future intégration Google Sheets"""
+    logger.info(f"Soumission du formulaire de contact reçue: {contact_data.get('email', 'inconnu')}")
+    
+    # Valider les champs requis
+    required_fields = ['first_name', 'last_name', 'email', 'phone', 'type', 'category', 'subject', 'description']
+    for field in required_fields:
+        if field not in contact_data or not contact_data[field]:
+            raise HTTPException(status_code=400, detail=f"Champ requis manquant: {field}")
+    
+    # TODO: Intégrer avec Google Sheets
+    # Pour l'instant, retourner juste un succès
+    return {
+        "success": True,
+        "message": "Formulaire de contact soumis avec succès. Nous vous recontacterons bientôt !",
+        "data": contact_data
+    }
+
+@app.get("/api/news")
+async def get_news():
+    """Obtenir les articles d'actualité"""
+    news_articles = [
+        {
+            "id": 1,
+            "title": "Bitcoin Suisse Active le Trading pour les Protocoles Haute Performance Monad et Hyperliquid",
+            "description": "Zoug, Suisse, 16 décembre 2025 – Bitcoin Suisse est heureux d'annoncer la disponibilité du trading pour Monad (MON) et Hyperliquid (HYPE), deux protocoles Layer 1 récemment lancés représentant des avancées techniques significatives dans les performances blockchain.",
+            "category": "général",
+            "date": "15 déc. 2024",
+            "read_time": "4 Min",
+            "image": "https://assets.bitcoinsuisse.com/schiscms/assets/desktop_HYPE_and_MON_Listing_a1145471d4.webp"
+        },
+        {
+            "id": 2,
+            "title": "Bitcoin Suisse Nomme Roman Przibylla comme Directeur Client pour Accélérer les Activités Commerciales",
+            "description": "Zoug, Suisse, 13 novembre 2025 – Bitcoin Suisse annonce un renforcement supplémentaire de son Comité de Direction avec la nomination de Roman Przibylla en tant que Directeur Client (CCO) du Groupe Bitcoin Suisse à compter du 1er décembre 2025.",
+            "category": "général",
+            "date": "12 nov. 2024",
+            "read_time": "5 Min",
+            "image": "https://assets.bitcoinsuisse.com/schiscms/assets/Bitcoin_Suisse_Appoints_Roman_Przibylla_as_Chief_Client_Officer_to_Accelerate_Commercial_Activities_660d851402.png"
+        },
+        {
+            "id": 3,
+            "title": "Bitcoin Suisse (Europe) AG, Solstice et Obol Alimentent l'Infrastructure de Validateur Souverain pour LTIN",
+            "description": "Vaduz, Liechtenstein, 3 novembre 2025 – Bitcoin Suisse est fier d'annoncer son rôle en tant qu'opérateur de validateur fondateur pour le Liechtenstein Trust Integrity Network (LTIN), une initiative d'infrastructure blockchain soutenue par l'État.",
+            "category": "général",
+            "date": "2 nov. 2024",
+            "read_time": "5 Min",
+            "image": "https://assets.bitcoinsuisse.com/schiscms/assets/Bitcoin_Suisse_Europe_AG_Solstice_and_Obol_Powering_Sovereign_Validator_Infrastructure_for_LTIN_b85704d3b5.png"
+        }
+    ]
+    return {"news": news_articles}
+
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run(app, host="0.0.0.0", port=8001)
