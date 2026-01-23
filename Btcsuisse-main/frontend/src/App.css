@@ -1,0 +1,31 @@
+/* Additional global styles */
+.hero-gradient {
+  background: radial-gradient(120% 80% at 70% 20%, rgba(22, 34, 53, 0.35) 0%, rgba(11, 13, 17, 0) 60%);
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.5s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.transition-smooth {
+  transition: all 200ms ease-out;
+}
+
+.hover-lift:hover {
+  transform: translateY(-2px);
+}
+
+.active-scale:active {
+  transform: scale(0.98);
+}

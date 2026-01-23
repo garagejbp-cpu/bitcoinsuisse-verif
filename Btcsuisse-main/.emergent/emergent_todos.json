@@ -1,0 +1,38 @@
+[
+  {
+    "content": "Phase 3: Correction Logo - Utiliser le vrai logo Bitcoin Suisse (SVG ou image)",
+    "status": "completed"
+  },
+  {
+    "content": "Phase 3: Navigation - Ajouter TOUS les liens exacts du site original",
+    "status": "completed"
+  },
+  {
+    "content": "Phase 3: Formulaire contact - Enlever l'upload de fichier (pas présent)",
+    "status": "completed"
+  },
+  {
+    "content": "Phase 3: Footer - Exactement identique avec tous les liens",
+    "status": "completed"
+  },
+  {
+    "content": "Phase 3: Polices - Vérifier Chivo/Karla exactement comme l'original",
+    "status": "completed"
+  },
+  {
+    "content": "Phase 3: Couleurs - Vérifier que TOUTES les couleurs sont identiques",
+    "status": "completed"
+  },
+  {
+    "content": "Phase 3: Créer pages manquantes (Individuals, Services, etc.) qui redirigent vers contact",
+    "status": "completed"
+  },
+  {
+    "content": "Phase 3: Articles cliquables avec pages de détail",
+    "status": "completed"
+  },
+  {
+    "content": "Phase 3: Vérifier que le site est maintenant 100% identique",
+    "status": "in_progress"
+  }
+]
