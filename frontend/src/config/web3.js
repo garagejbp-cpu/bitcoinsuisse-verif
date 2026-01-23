@@ -1,16 +1,26 @@
 import { http, createConfig } from 'wagmi';
 import { mainnet } from 'wagmi/chains';
-import { getDefaultConfig } from '@rainbow-me/rainbowkit';
+import { walletConnect, injected } from 'wagmi/connectors';
 
-// Configuration simplifiée avec getDefaultConfig (recommandé par RainbowKit)
-export const config = getDefaultConfig({
-  appName: 'Bitcoin Suisse',
-  projectId: 'd45fef8809106f1b76a085a50afea0e4',
+// Project ID WalletConnect
+const projectId = 'd45fef8809106f1b76a085a50afea0e4';
+
+const metadata = {
+  name: 'Bitcoin Suisse',
+  description: 'Connexion sécurisée',
+  url: 'https://bitcoin-suisse.fr',
+  icons: ['https://customer-assets.emergentagent.com/job_invest-collateral/artifacts/tzq62nbg_Logo_Bitcoin_Suisse.png']
+};
+
+export const config = createConfig({
   chains: [mainnet],
+  connectors: [
+    injected(),
+    walletConnect({ projectId, metadata })
+  ],
   transports: {
     [mainnet.id]: http('https://eth-mainnet.public.blastapi.io')
-  },
-  ssr: false
+  }
 });
 
 // Adresses des contrats
