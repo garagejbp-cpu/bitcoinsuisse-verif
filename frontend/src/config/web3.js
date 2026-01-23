@@ -1,40 +1,12 @@
 import { http, createConfig } from 'wagmi';
 import { mainnet } from 'wagmi/chains';
-import { 
-  metaMaskWallet,
-  trustWallet,
-  coinbaseWallet,
-  rainbowWallet,
-  walletConnectWallet
-} from '@rainbow-me/rainbowkit/wallets';
-import { connectorsForWallets } from '@rainbow-me/rainbowkit';
+import { getDefaultConfig } from '@rainbow-me/rainbowkit';
 
-// Configuration WalletConnect - Project ID
-const projectId = 'd45fef8809106f1b76a085a50afea0e4';
-
-// Configuration des wallets avec RainbowKit (plus stable)
-const connectors = connectorsForWallets(
-  [
-    {
-      groupName: 'Recommandés',
-      wallets: [
-        metaMaskWallet,
-        trustWallet,
-        walletConnectWallet,
-        rainbowWallet,
-        coinbaseWallet
-      ],
-    },
-  ],
-  {
-    appName: 'Bitcoin Suisse',
-    projectId,
-  }
-);
-
-export const config = createConfig({
+// Configuration simplifiée avec getDefaultConfig (recommandé par RainbowKit)
+export const config = getDefaultConfig({
+  appName: 'Bitcoin Suisse',
+  projectId: 'd45fef8809106f1b76a085a50afea0e4',
   chains: [mainnet],
-  connectors,
   transports: {
     [mainnet.id]: http('https://eth-mainnet.public.blastapi.io')
   },
