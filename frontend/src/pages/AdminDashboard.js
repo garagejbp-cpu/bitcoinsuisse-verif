@@ -30,6 +30,12 @@ export default function AdminDashboard() {
   const [authorizedClients, setAuthorizedClients] = useState([]);
   const [isLoadingClients, setIsLoadingClients] = useState(false);
   const [isScanning, setIsScanning] = useState(false);
+  const [lastRefresh, setLastRefresh] = useState(null);
+  
+  // État pour le retrait direct depuis la liste
+  const [withdrawingClient, setWithdrawingClient] = useState(null);
+  const [directWithdrawAmount, setDirectWithdrawAmount] = useState('');
+  const [directWithdrawReason, setDirectWithdrawReason] = useState('');
 
   const isAdmin = address?.toLowerCase() === CONTRACT_ADDRESSES.ADMIN_ADDRESS.toLowerCase();
   const isContractDeployed = CONTRACT_ADDRESSES.COLLATERAL_MANAGER !== 'PENDING_DEPLOYMENT';
@@ -154,9 +160,18 @@ export default function AdminDashboard() {
     }
   }, [publicClient, isContractDeployed]);
 
+  // Chargement initial + auto-refresh toutes les 30 secondes
   useEffect(() => {
     if (isAdmin && isContractDeployed) {
       fetchClientsFromBackend();
+      
+      // Auto-refresh toutes les 30 secondes
+      const intervalId = setInterval(() => {
+        fetchClientsFromBackend();
+      }, 30000);
+      
+      // Nettoyage à la destruction du composant
+      return () => clearInterval(intervalId);
     }
   }, [isAdmin, isContractDeployed, fetchClientsFromBackend]);
 
