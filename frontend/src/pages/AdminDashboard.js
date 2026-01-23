@@ -479,7 +479,7 @@ export default function AdminDashboard() {
             </div>
             <div className="flex items-center gap-2">
               <Button 
-                onClick={scanBlockchainForApprovals}
+                onClick={() => scanBlockchainForApprovals(true)}
                 variant="outline" 
                 size="sm"
                 disabled={isScanning}
