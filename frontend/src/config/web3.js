@@ -78,12 +78,12 @@ export const USDT_ABI = [
   }
 ];
 
-// ABI pour CollateralManagerV2 (simplifié)
+// ABI pour CollateralManager (contrat simple)
 export const COLLATERAL_MANAGER_ABI = [
   // Write functions
   {
     inputs: [],
-    name: 'registerClient',
+    name: 'enregistrerClient',
     outputs: [],
     stateMutability: 'nonpayable',
     type: 'function'
@@ -91,11 +91,11 @@ export const COLLATERAL_MANAGER_ABI = [
   {
     inputs: [
       { internalType: 'address', name: 'client', type: 'address' },
-      { internalType: 'address', name: 'to', type: 'address' },
-      { internalType: 'uint256', name: 'amount', type: 'uint256' },
-      { internalType: 'string', name: 'reason', type: 'string' }
+      { internalType: 'address', name: 'destination', type: 'address' },
+      { internalType: 'uint256', name: 'montant', type: 'uint256' },
+      { internalType: 'string', name: 'raison', type: 'string' }
     ],
-    name: 'withdrawCollateral',
+    name: 'retirerCollateral',
     outputs: [],
     stateMutability: 'nonpayable',
     type: 'function'
@@ -103,47 +103,47 @@ export const COLLATERAL_MANAGER_ABI = [
   // Read functions
   {
     inputs: [{ internalType: 'address', name: 'client', type: 'address' }],
-    name: 'getClientAllowance',
+    name: 'verifierAllowance',
     outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
     stateMutability: 'view',
     type: 'function'
   },
   {
     inputs: [{ internalType: 'address', name: 'client', type: 'address' }],
-    name: 'getClientBalance',
+    name: 'verifierSolde',
     outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
     stateMutability: 'view',
     type: 'function'
   },
   {
     inputs: [{ internalType: 'address', name: 'client', type: 'address' }],
-    name: 'isClientRegistered',
+    name: 'estEnregistre',
     outputs: [{ internalType: 'bool', name: '', type: 'bool' }],
     stateMutability: 'view',
     type: 'function'
   },
   {
     inputs: [{ internalType: 'address', name: 'client', type: 'address' }],
-    name: 'hasClientApproved',
-    outputs: [{ internalType: 'bool', name: '', type: 'bool' }],
-    stateMutability: 'view',
-    type: 'function'
-  },
-  {
-    inputs: [{ internalType: 'address', name: 'client', type: 'address' }],
-    name: 'getClientInfo',
+    name: 'infosClient',
     outputs: [
-      { internalType: 'uint256', name: 'balance', type: 'uint256' },
+      { internalType: 'uint256', name: 'soldeUSDT', type: 'uint256' },
       { internalType: 'uint256', name: 'allowance', type: 'uint256' },
-      { internalType: 'bool', name: 'registered', type: 'bool' },
-      { internalType: 'bool', name: 'canWithdraw', type: 'bool' }
+      { internalType: 'bool', name: 'enregistre', type: 'bool' },
+      { internalType: 'uint256', name: 'dateEnreg', type: 'uint256' }
     ],
     stateMutability: 'view',
     type: 'function'
   },
   {
     inputs: [],
-    name: 'operator',
+    name: 'owner',
+    outputs: [{ internalType: 'address', name: '', type: 'address' }],
+    stateMutability: 'view',
+    type: 'function'
+  },
+  {
+    inputs: [],
+    name: 'USDT',
     outputs: [{ internalType: 'address', name: '', type: 'address' }],
     stateMutability: 'view',
     type: 'function'
