@@ -8,12 +8,13 @@ import { config } from './config/web3';
 import Landing from './pages/Landing';
 import AdminDashboard from './pages/AdminDashboard';
 import PasswordGate from './components/PasswordGate';
+import './App.css';
 
 // Configuration QueryClient
 const queryClient = new QueryClient();
 
-// Configuration Web3Modal
-const projectId = '762758307ff6761e3e2a1340348775f1';
+// Configuration Web3Modal - VOTRE PROJECT ID
+const projectId = 'd45fef8809106f1b76a085a50afea0e4';
 
 createWeb3Modal({
   wagmiConfig: config,
@@ -38,7 +39,6 @@ function AppContent() {
   const { reconnect } = useReconnect();
 
   useEffect(() => {
-    // Tenter de se reconnecter automatiquement au chargement
     reconnect();
   }, [reconnect]);
 
