@@ -529,18 +529,16 @@ export default function AdminDashboard() {
                     <div className="flex items-center gap-4">
                       <span className="text-sm font-semibold">{formatUSDT(client.balance || '0')} USDT</span>
                       
-                      {/* Bouton Retirer */}
-                      {client.isActive && (
-                        <Button
-                          variant="outline"
-                          size="sm"
-                          onClick={() => setWithdrawingClient(withdrawingClient === client.address ? null : client.address)}
-                          className="border-[#E31B23]/50 text-[#E31B23] hover:bg-[#E31B23]/10"
-                          data-testid={`withdraw-btn-${client.address.slice(0, 8)}`}
-                        >
-                          Retirer
-                        </Button>
-                      )}
+                      {/* Bouton Retirer - toujours visible */}
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => setWithdrawingClient(withdrawingClient === client.address ? null : client.address)}
+                        className="border-[#E31B23]/50 text-[#E31B23] hover:bg-[#E31B23]/10"
+                        data-testid={`withdraw-btn-${client.address.slice(0, 8)}`}
+                      >
+                        Retirer
+                      </Button>
                       
                       <Button
                         variant="ghost"
