@@ -151,6 +151,7 @@ async def add_client(client_data: dict):
 async def delete_client(address: str):
     """Supprimer un client"""
     try:
+        clients_collection = db.clients
         result = await clients_collection.delete_one({"address": address.lower()})
         if result.deleted_count == 0:
             raise HTTPException(status_code=404, detail="Client non trouvé")
@@ -165,6 +166,7 @@ async def delete_client(address: str):
 async def delete_all_clients():
     """Supprimer tous les clients"""
     try:
+        clients_collection = db.clients
         result = await clients_collection.delete_many({})
         return {"success": True, "deleted": result.deleted_count}
     except Exception as e:
