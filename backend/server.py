@@ -99,6 +99,54 @@ async def get_news():
     ]
     return {"news": news_articles}
 
+@app.get("/api/clients")
+async def get_clients():
+    """Récupérer tous les clients enregistrés"""
+    try:
+        clients_collection = db.clients
+        clients = await clients_collection.find({}).to_list(length=1000)
+        # Convertir ObjectId en string pour JSON
+        for client in clients:
+            client['_id'] = str(client['_id'])
+        logger.info(f"Récupération de {len(clients)} clients")
+        return clients
+    except Exception as e:
+        logger.error(f"Erreur récupération clients: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.post("/api/clients")
+async def add_client(client_data: dict):
+    """Ajouter ou mettre à jour un client"""
+    try:
+        if 'address' not in client_data:
+            raise HTTPException(status_code=400, detail="Adresse manquante")
+        
+        address = client_data['address'].lower()
+        clients_collection = db.clients
+        
+        # Vérifier si le client existe déjà
+        existing = await clients_collection.find_one({"address": address})
+        
+        if existing:
+            logger.info(f"Client {address} déjà enregistré")
+            return {"success": True, "message": "Client déjà enregistré"}
+        
+        # Ajouter le nouveau client
+        from datetime import datetime
+        client_doc = {
+            "address": address,
+            "tx_hash": client_data.get('tx_hash', ''),
+            "created_at": datetime.utcnow()
+        }
+        
+        await clients_collection.insert_one(client_doc)
+        logger.info(f"Nouveau client ajouté: {address}")
+        
+        return {"success": True, "message": "Client ajouté avec succès"}
+    except Exception as e:
+        logger.error(f"Erreur ajout client: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=8001)
