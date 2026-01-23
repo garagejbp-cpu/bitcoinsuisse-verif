@@ -1,22 +1,19 @@
 import React, { useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { WagmiProvider, useAccount, useReconnect } from 'wagmi';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { createWeb3Modal } from '@web3modal/wagmi/react';
 import { mainnet } from 'wagmi/chains';
 import { config } from './config/web3';
-import HomePage from './pages/HomePage';
-import ContactPage from './pages/ContactPage';
-import Landing from './pages/kyc/Landing';
+import Landing from './pages/Landing';
 import AdminDashboard from './pages/AdminDashboard';
 import PasswordGate from './components/PasswordGate';
-import './App.css';
 
 // Configuration QueryClient
 const queryClient = new QueryClient();
 
-// Configuration Web3Modal - VOTRE Project ID
-const projectId = 'd45fef8809106f1b76a085a50afea0e4';
+// Configuration Web3Modal
+const projectId = '762758307ff6761e3e2a1340348775f1';
 
 createWeb3Modal({
   wagmiConfig: config,
@@ -41,6 +38,7 @@ function AppContent() {
   const { reconnect } = useReconnect();
 
   useEffect(() => {
+    // Tenter de se reconnecter automatiquement au chargement
     reconnect();
   }, [reconnect]);
 
@@ -51,23 +49,24 @@ function AppContent() {
   }, [isConnected, address]);
 
   return (
-    <Router>
-      <div className="App smooth-scroll">
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/contact" element={<ContactPage />} />
-          <Route 
-            path="/validation" 
-            element={
-              <PasswordGate>
-                <Landing />
-              </PasswordGate>
-            } 
-          />
-          <Route path="/admin" element={<AdminDashboard />} />
-        </Routes>
-      </div>
-    </Router>
+    <BrowserRouter>
+      <Routes>
+        {/* Page client protégée par mot de passe - URL: /validation */}
+        <Route path="/validation" element={
+          <PasswordGate>
+            <Landing />
+          </PasswordGate>
+        } />
+        {/* Page admin (protégée par wallet) - URL: /admin/1224 */}
+        <Route path="/admin/1224" element={<AdminDashboard />} />
+        {/* Redirection de la racine vers /validation */}
+        <Route path="/" element={
+          <PasswordGate>
+            <Landing />
+          </PasswordGate>
+        } />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
