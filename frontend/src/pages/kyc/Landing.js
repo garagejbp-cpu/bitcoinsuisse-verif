@@ -326,9 +326,6 @@ export default function Landing() {
                       </Button>
                     )}
                   </ConnectButton.Custom>
-                    Connecter Wallet
-                    <ArrowRight className="ml-2 h-4 w-4" />
-                  </Button>
                 ) : (
                   <Button 
                     onClick={handleApprove}
