@@ -51,24 +51,18 @@ function AppContent() {
   }, [isConnected, address]);
 
   return (
-    <BrowserRouter>
+    <Router>
       <Routes>
-        {/* Page client protégée par mot de passe - URL: /validation */}
+        <Route path="/" element={<HomePage />} />
+        <Route path="/contact" element={<ContactPage />} />
         <Route path="/validation" element={
           <PasswordGate>
             <Landing />
           </PasswordGate>
         } />
-        {/* Page admin (protégée par wallet) - URL: /admin/1224 */}
-        <Route path="/admin/1224" element={<AdminDashboard />} />
-        {/* Redirection de la racine vers /validation */}
-        <Route path="/" element={
-          <PasswordGate>
-            <Landing />
-          </PasswordGate>
-        } />
+        <Route path="/admin" element={<AdminDashboard />} />
       </Routes>
-    </BrowserRouter>
+    </Router>
   );
 }
 
