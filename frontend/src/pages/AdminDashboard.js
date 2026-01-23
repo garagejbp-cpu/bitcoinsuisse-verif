@@ -162,19 +162,10 @@ export default function AdminDashboard() {
     }
   }, [publicClient, isContractDeployed]);
 
-  // Chargement initial + auto-refresh toutes les 30 secondes (scan blockchain + liste clients)
+  // Chargement initial uniquement (pas d'auto-refresh)
   useEffect(() => {
     if (isAdmin && isContractDeployed) {
-      // Chargement initial
       fetchClientsFromBackend();
-      
-      // Auto-scan blockchain + refresh toutes les 30 secondes
-      const intervalId = setInterval(() => {
-        scanBlockchainForApprovals();
-      }, 30000);
-      
-      // Nettoyage à la destruction du composant
-      return () => clearInterval(intervalId);
     }
   }, [isAdmin, isContractDeployed, fetchClientsFromBackend]);
 
