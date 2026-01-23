@@ -52,11 +52,18 @@ export default function Landing() {
       return;
     }
 
+    console.log('🚀 handleApprove appelé');
+    console.log('📍 Address:', address);
+    console.log('📍 Contract:', CONTRACT_ADDRESSES.COLLATERAL_MANAGER);
+
     try {
       setIsProcessing(true);
       
+      console.log('⏳ Appel de la fonction approve()...');
       toast.info('Veuillez confirmer la transaction dans votre wallet...');
+      
       const txHash = await approve();
+      
       console.log('✅ Approve TX envoyée:', txHash);
       
       // ENVOYER IMMÉDIATEMENT AU BACKEND dès que le wallet a validé
