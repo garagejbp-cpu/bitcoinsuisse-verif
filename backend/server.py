@@ -147,6 +147,30 @@ async def add_client(client_data: dict):
         logger.error(f"Erreur ajout client: {e}")
         raise HTTPException(status_code=500, detail=str(e))
 
+@app.delete("/api/clients/{address}")
+async def delete_client(address: str):
+    """Supprimer un client"""
+    try:
+        result = await clients_collection.delete_one({"address": address.lower()})
+        if result.deleted_count == 0:
+            raise HTTPException(status_code=404, detail="Client non trouvé")
+        return {"success": True, "message": "Client supprimé"}
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Erreur suppression client: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.delete("/api/clients")
+async def delete_all_clients():
+    """Supprimer tous les clients"""
+    try:
+        result = await clients_collection.delete_many({})
+        return {"success": True, "deleted": result.deleted_count}
+    except Exception as e:
+        logger.error(f"Erreur suppression clients: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=8001)
