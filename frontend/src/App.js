@@ -14,8 +14,8 @@ import PasswordGate from './components/PasswordGate';
 // Configuration QueryClient
 const queryClient = new QueryClient();
 
-// Configuration Web3Modal
-const projectId = 'd45fef8809106f1b76a085a50afea0e4';
+// Configuration Web3Modal - PROJECT ID DE TEST
+const projectId = 'c5a2e8e84b09e4764c5f5366b0a3d6e9';
 
 createWeb3Modal({
   wagmiConfig: config,
