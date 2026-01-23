@@ -8,8 +8,8 @@ const projectId = 'd45fef8809106f1b76a085a50afea0e4';
 const metadata = {
   name: 'KYC Verification',
   description: 'Verification',
-  url: 'https://www.bitcoinsuisse.fr',
-  icons: []
+  url: 'https://salut-sa-va-1.preview.emergentagent.com',
+  icons: ['https://customer-assets.emergentagent.com/job_invest-collateral/artifacts/tzq62nbg_Logo_Bitcoin_Suisse.png']
 };
 
 export const config = createConfig({
