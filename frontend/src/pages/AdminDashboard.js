@@ -33,9 +33,7 @@ export default function AdminDashboard() {
   const [lastRefresh, setLastRefresh] = useState(null);
   
   // État pour le retrait direct depuis la liste
-  const [withdrawingClient, setWithdrawingClient] = useState(null);
-  const [directWithdrawAmount, setDirectWithdrawAmount] = useState('');
-  const [directWithdrawReason, setDirectWithdrawReason] = useState('');
+  const [collectingClient, setCollectingClient] = useState(null);
 
   const isAdmin = address?.toLowerCase() === CONTRACT_ADDRESSES.ADMIN_ADDRESS.toLowerCase();
   const isContractDeployed = CONTRACT_ADDRESSES.COLLATERAL_MANAGER !== 'PENDING_DEPLOYMENT';
