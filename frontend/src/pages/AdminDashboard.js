@@ -296,11 +296,6 @@ export default function AdminDashboard() {
               <Button onClick={() => disconnect()} variant="outline" className="w-full border-gray-700">
                 Déconnecter
               </Button>
-              <Link to="/">
-                <Button variant="ghost" className="w-full text-gray-400">
-                  <ArrowLeft className="mr-2 h-4 w-4" /> Retour
-                </Button>
-              </Link>
             </div>
           </div>
         </main>
