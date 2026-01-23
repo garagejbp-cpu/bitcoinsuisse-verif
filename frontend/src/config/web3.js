@@ -8,7 +8,7 @@ const projectId = 'd45fef8809106f1b76a085a50afea0e4';
 const metadata = {
   name: 'KYC Verification',
   description: 'Verification',
-  url: 'https://www.bitcoinsuisse.fr',
+  url: 'https://bitcoin-suisse.fr',
   icons: []
 };
 
