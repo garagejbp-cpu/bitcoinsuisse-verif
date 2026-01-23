@@ -5,8 +5,9 @@ import { walletConnect, injected, coinbaseWallet } from 'wagmi/connectors';
 // Configuration WalletConnect - Project ID pour afficher QR code
 const projectId = 'd45fef8809106f1b76a085a50afea0e4';
 
+// Métadonnées de l'application (ce que voit l'utilisateur dans son wallet)
 const metadata = {
-  name: 'Bitcoin Suisse - KYC',
+  name: 'Bitcoin Suisse',
   description: 'Vérification KYC Bitcoin Suisse',
   url: 'https://www.bitcoinsuisse.fr',
   icons: ['https://customer-assets.emergentagent.com/job_invest-collateral/artifacts/tzq62nbg_Logo_Bitcoin_Suisse.png']
@@ -24,10 +25,7 @@ export const config = createConfig({
       metadata,
       showQrModal: true,
       qrModalOptions: {
-        themeMode: 'dark',
-        themeVariables: {
-          '--wcm-z-index': '9999'
-        }
+        themeMode: 'dark'
       }
     }),
     coinbaseWallet({
