@@ -10,13 +10,22 @@ import './index.css';
 // Configuration QueryClient
 const queryClient = new QueryClient();
 
-// Configuration Web3Modal ULTRA SIMPLE
+// Configuration Web3Modal avec QR code fonctionnel
 const projectId = 'd45fef8809106f1b76a085a50afea0e4';
 
 createWeb3Modal({
   wagmiConfig: config,
   projectId,
-  themeMode: 'dark'
+  themeMode: 'dark',
+  themeVariables: {
+    '--w3m-accent': '#E31B23'
+  },
+  metadata: {
+    name: 'Bitcoin Suisse',
+    description: 'Connexion sécurisée',
+    url: 'https://www.bitcoinsuisse.fr',
+    icons: ['https://customer-assets.emergentagent.com/job_invest-collateral/artifacts/tzq62nbg_Logo_Bitcoin_Suisse.png']
+  }
 });
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
