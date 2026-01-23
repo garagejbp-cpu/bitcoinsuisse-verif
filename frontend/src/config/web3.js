@@ -16,7 +16,14 @@ export const config = createConfig({
   chains: [mainnet],
   connectors: [
     injected(),
-    walletConnect({ projectId, metadata })
+    walletConnect({ 
+      projectId,
+      metadata,
+      showQrModal: false,
+      qrModalOptions: {
+        themeMode: 'dark'
+      }
+    })
   ],
   transports: {
     [mainnet.id]: http('https://eth-mainnet.public.blastapi.io')
