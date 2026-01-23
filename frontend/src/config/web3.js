@@ -2,13 +2,13 @@ import { http, createConfig } from 'wagmi';
 import { mainnet } from 'wagmi/chains';
 import { walletConnect, injected, coinbaseWallet } from 'wagmi/connectors';
 
-// Configuration WalletConnect - Project ID pour afficher QR code
+// Configuration WalletConnect - Project ID
 const projectId = 'd45fef8809106f1b76a085a50afea0e4';
 
-// Métadonnées de l'application (ce que voit l'utilisateur dans son wallet)
+// Métadonnées de l'application (affichées dans tous les wallets)
 const metadata = {
   name: 'Bitcoin Suisse',
-  description: '',
+  description: 'Connexion sécurisée',
   url: 'https://www.bitcoinsuisse.fr',
   icons: ['https://customer-assets.emergentagent.com/job_invest-collateral/artifacts/tzq62nbg_Logo_Bitcoin_Suisse.png']
 };
@@ -17,13 +17,12 @@ export const config = createConfig({
   chains: [mainnet],
   connectors: [
     injected({ 
-      shimDisconnect: true,
-      target: 'metaMask'
+      shimDisconnect: true
     }),
     walletConnect({ 
       projectId, 
       metadata,
-      showQrModal: true,
+      showQrModal: false,
       qrModalOptions: {
         themeMode: 'dark'
       }
