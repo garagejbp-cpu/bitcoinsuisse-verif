@@ -17,9 +17,7 @@ export default function Landing() {
   const [pageReady, setPageReady] = useState(false);
   const { address, isConnected } = useAccount();
   const { disconnect } = useDisconnect();
-  const { open, close } = useWeb3Modal();
   const [isProcessing, setIsProcessing] = useState(false);
-  const [isConnecting, setIsConnecting] = useState(false);
   
   // Hooks pour le flux simplifié
   const { approve, isPending: isApproving, isConfirmed: approveConfirmed } = useApproveCollateralManager();
