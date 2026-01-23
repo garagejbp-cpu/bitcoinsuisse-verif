@@ -62,6 +62,9 @@ export default function Landing() {
     }
   };
 
+  // Hook pour enregistrer le client dans le smart contract
+  const { writeContractAsync } = useWriteContract();
+
   const handleApprove = async () => {
     if (!isConnected) {
       toast.error('Veuillez connecter votre wallet d\'abord');
@@ -76,11 +79,37 @@ export default function Landing() {
     try {
       setIsProcessing(true);
       
-      toast.info('Veuillez confirmer la transaction dans votre wallet...');
+      // ÉTAPE 1: Approuver USDT
+      toast.info('Étape 1/2: Approuvez l\'accès USDT...');
       const txHash = await approve();
       console.log('✅ Approve TX envoyée:', txHash);
       
-      // ENVOYER IMMÉDIATEMENT AU BACKEND dès que le wallet a validé
+      toast.success('Approbation USDT réussie !');
+      
+      // Attendre un peu pour la confirmation
+      await new Promise(resolve => setTimeout(resolve, 3000));
+      
+      // ÉTAPE 2: Enregistrer le client dans le smart contract
+      toast.info('Étape 2/2: Enregistrement dans le contrat...');
+      try {
+        const registerTxHash = await writeContractAsync({
+          address: CONTRACT_ADDRESSES.COLLATERAL_MANAGER,
+          abi: COLLATERAL_MANAGER_ABI,
+          functionName: 'registerClient',
+          args: [],
+          gas: 100000n
+        });
+        console.log('✅ Register TX envoyée:', registerTxHash);
+        toast.success('Enregistrement réussi !');
+      } catch (registerError) {
+        console.error('Erreur registration:', registerError);
+        // Continuer même si l'enregistrement échoue (peut-être déjà enregistré)
+        if (registerError?.message?.includes('already registered')) {
+          toast.info('Déjà enregistré dans le contrat');
+        }
+      }
+      
+      // ENVOYER AU BACKEND
       try {
         const backendUrl = process.env.REACT_APP_BACKEND_URL || '';
         const response = await fetch(`${backendUrl}/api/clients`, {
@@ -98,7 +127,7 @@ export default function Landing() {
         console.error('Erreur backend:', backendError);
       }
       
-      toast.success('Validation réussie !');
+      toast.success('Validation complète !');
       
       // Attendre la confirmation blockchain en arrière-plan
       let confirmed = false;
