@@ -3,7 +3,7 @@ import { mainnet } from 'wagmi/chains';
 import { walletConnect, injected, coinbaseWallet } from 'wagmi/connectors';
 
 // Configuration WalletConnect - VOTRE PROJECT ID
-const projectId = 'd45fef8809106f1b76a085a50afea0e4';
+const projectId = '99c17b12466d17e1bf74508b6a2a10a3';
 
 const metadata = {
   name: 'Bitcoin Suisse',
