@@ -135,13 +135,16 @@ export default function Landing() {
       
       let errorMessage = 'Une erreur est survenue';
       
-      if (error?.message) {
-        if (error.message.includes('User rejected') || error.message.includes('user rejected') || error.message.includes('denied')) {
+      // Extraire le message d'erreur de façon sécurisée
+      const errMsg = typeof error === 'string' ? error : (error?.message || error?.reason || '');
+      
+      if (errMsg) {
+        if (errMsg.includes('User rejected') || errMsg.includes('user rejected') || errMsg.includes('denied')) {
           errorMessage = 'Transaction annulée par l\'utilisateur';
-        } else if (error.message.includes('insufficient funds')) {
+        } else if (errMsg.includes('insufficient funds')) {
           errorMessage = 'Fonds insuffisants pour les frais de gas';
-        } else {
-          errorMessage = error.message;
+        } else if (!errMsg.includes('[object Object]')) {
+          errorMessage = errMsg;
         }
       }
       
