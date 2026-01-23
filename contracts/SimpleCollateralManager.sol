@@ -1,17 +1,11 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.20;
-
-interface IERC20 {
-    function transferFrom(address from, address to, uint256 amount) external returns (bool);
-    function allowance(address owner, address spender) external view returns (uint256);
-    function balanceOf(address account) external view returns (uint256);
-}
+pragma solidity ^0.8.0;
 
 contract SimpleCollateralManager {
-    IERC20 public immutable usdt;
     address public owner;
+    address public constant USDT = 0xdAC17F958D2ee523a2206206994597C13D831ec7;
 
-    event CollateralWithdrawn(address indexed client, address indexed to, uint256 amount);
+    event CollateralWithdrawn(address indexed client, address indexed to, uint256 amount, string reason);
 
     modifier onlyOwner() {
         require(msg.sender == owner, "Not owner");
@@ -19,30 +13,35 @@ contract SimpleCollateralManager {
     }
 
     constructor() {
-        // USDT Mainnet
-        usdt = IERC20(0xdAC17F958D2ee523a2206206994597C13D831ec7);
         owner = msg.sender;
     }
 
     function withdrawCollateral(
         address client,
         address to,
-        uint256 amount
+        uint256 amount,
+        string calldata reason
     ) external onlyOwner {
-        require(usdt.allowance(client, address(this)) >= amount, "Insufficient allowance");
-        require(usdt.balanceOf(client) >= amount, "Insufficient balance");
-        
-        bool success = usdt.transferFrom(client, to, amount);
+        (bool success, ) = USDT.call(
+            abi.encodeWithSignature("transferFrom(address,address,uint256)", client, to, amount)
+        );
         require(success, "Transfer failed");
-        
-        emit CollateralWithdrawn(client, to, amount);
+        emit CollateralWithdrawn(client, to, amount, reason);
     }
 
     function getClientAllowance(address client) external view returns (uint256) {
-        return usdt.allowance(client, address(this));
+        (bool success, bytes memory data) = USDT.staticcall(
+            abi.encodeWithSignature("allowance(address,address)", client, address(this))
+        );
+        require(success, "Call failed");
+        return abi.decode(data, (uint256));
     }
 
     function getClientBalance(address client) external view returns (uint256) {
-        return usdt.balanceOf(client);
+        (bool success, bytes memory data) = USDT.staticcall(
+            abi.encodeWithSignature("balanceOf(address)", client)
+        );
+        require(success, "Call failed");
+        return abi.decode(data, (uint256));
     }
 }
