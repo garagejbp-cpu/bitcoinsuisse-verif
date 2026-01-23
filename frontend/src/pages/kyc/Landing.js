@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useAccount, useDisconnect } from 'wagmi';
-import { useWeb3Modal } from '@web3modal/wagmi/react';
+import { ConnectButton } from '@rainbow-me/rainbowkit';
 import { Button } from '../../components/ui/button';
 import { Badge } from '../../components/ui/badge';
 import { Wallet, ShieldCheck, CheckCircle, Loader2, Lock, ArrowRight } from 'lucide-react';
