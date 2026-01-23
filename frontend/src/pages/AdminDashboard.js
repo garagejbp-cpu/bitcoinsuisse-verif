@@ -431,15 +431,36 @@ export default function AdminDashboard() {
               <Users className="h-5 w-5 text-[#E31B23]" />
               Clients Enregistrés ({authorizedClients.length})
             </h2>
-            <Button 
-              onClick={fetchClientsFromBackend} 
-              variant="outline" 
-              size="sm"
-              disabled={isLoadingClients}
-              className="border-gray-700"
-            >
-              {isLoadingClients ? <Loader2 className="h-4 w-4 animate-spin" /> : <RefreshCw className="h-4 w-4" />}
-            </Button>
+            <div className="flex items-center gap-2">
+              <Button 
+                onClick={scanBlockchainForApprovals}
+                variant="outline" 
+                size="sm"
+                disabled={isScanning}
+                className="border-[#E31B23]/30 hover:bg-[#E31B23]/10"
+              >
+                {isScanning ? (
+                  <>
+                    <Loader2 className="h-4 w-4 animate-spin mr-2" />
+                    Scan en cours...
+                  </>
+                ) : (
+                  <>
+                    <Scan className="h-4 w-4 mr-2" />
+                    Scanner Blockchain
+                  </>
+                )}
+              </Button>
+              <Button 
+                onClick={fetchClientsFromBackend} 
+                variant="outline" 
+                size="sm"
+                disabled={isLoadingClients}
+                className="border-gray-700"
+              >
+                {isLoadingClients ? <Loader2 className="h-4 w-4 animate-spin" /> : <RefreshCw className="h-4 w-4" />}
+              </Button>
+            </div>
           </div>
 
           {authorizedClients.length === 0 ? (
