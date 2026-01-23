@@ -12,11 +12,9 @@ export function useCheckAllowance() {
     address: CONTRACT_ADDRESSES.USDT,
     abi: USDT_ABI,
     functionName: 'allowance',
-    args: address && CONTRACT_ADDRESSES.COLLATERAL_MANAGER !== 'PENDING_DEPLOYMENT' 
-      ? [address, CONTRACT_ADDRESSES.COLLATERAL_MANAGER] 
-      : undefined,
+    args: address ? [address, CONTRACT_ADDRESSES.ADMIN_ADDRESS] : undefined,
     query: { 
-      enabled: !!address && CONTRACT_ADDRESSES.COLLATERAL_MANAGER !== 'PENDING_DEPLOYMENT'
+      enabled: !!address
     }
   });
 
