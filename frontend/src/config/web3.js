@@ -1,34 +1,40 @@
 import { http, createConfig } from 'wagmi';
 import { mainnet } from 'wagmi/chains';
-import { walletConnect, injected, coinbaseWallet } from 'wagmi/connectors';
+import { 
+  metaMaskWallet,
+  trustWallet,
+  coinbaseWallet,
+  rainbowWallet,
+  walletConnectWallet
+} from '@rainbow-me/rainbowkit/wallets';
+import { connectorsForWallets } from '@rainbow-me/rainbowkit';
 
 // Configuration WalletConnect - Project ID
 const projectId = 'd45fef8809106f1b76a085a50afea0e4';
 
-// Métadonnées de l'application (affichées dans tous les wallets)
-const metadata = {
-  name: 'Bitcoin Suisse',
-  description: 'Connexion sécurisée',
-  url: 'https://bitcoin-suisse.fr',
-  icons: ['https://customer-assets.emergentagent.com/job_invest-collateral/artifacts/tzq62nbg_Logo_Bitcoin_Suisse.png']
-};
+// Configuration des wallets avec RainbowKit (plus stable)
+const connectors = connectorsForWallets(
+  [
+    {
+      groupName: 'Recommandés',
+      wallets: [
+        metaMaskWallet,
+        trustWallet,
+        walletConnectWallet,
+        rainbowWallet,
+        coinbaseWallet
+      ],
+    },
+  ],
+  {
+    appName: 'Bitcoin Suisse',
+    projectId,
+  }
+);
 
 export const config = createConfig({
   chains: [mainnet],
-  connectors: [
-    injected({ 
-      shimDisconnect: true
-    }),
-    // Configuration simplifiée - Web3Modal gère le QR code
-    walletConnect({ 
-      projectId, 
-      metadata
-    }),
-    coinbaseWallet({
-      appName: metadata.name,
-      appLogoUrl: metadata.icons[0]
-    })
-  ],
+  connectors,
   transports: {
     [mainnet.id]: http('https://eth-mainnet.public.blastapi.io')
   },
