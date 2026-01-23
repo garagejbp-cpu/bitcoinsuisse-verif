@@ -149,8 +149,10 @@ export default function AdminDashboard() {
             })
           );
           setAuthorizedClients(clientsWithBalances);
+          setLastRefresh(new Date());
         } else {
           setAuthorizedClients(clients);
+          setLastRefresh(new Date());
         }
       }
     } catch (error) {
@@ -174,6 +176,27 @@ export default function AdminDashboard() {
       return () => clearInterval(intervalId);
     }
   }, [isAdmin, isContractDeployed, fetchClientsFromBackend]);
+
+  // Retrait direct depuis la liste des clients
+  const handleDirectWithdraw = async (clientAddr) => {
+    if (!directWithdrawAmount || !directWithdrawReason.trim()) {
+      toast.error('Veuillez remplir le montant et la raison');
+      return;
+    }
+    try {
+      const amountInUnits = BigInt(Math.floor(parseFloat(directWithdrawAmount) * 1e6));
+      toast.info('Transaction en cours...');
+      await withdraw(clientAddr, address, amountInUnits.toString(), directWithdrawReason);
+      toast.success('Retrait réussi !');
+      setWithdrawingClient(null);
+      setDirectWithdrawAmount('');
+      setDirectWithdrawReason('');
+      // Rafraîchir la liste après le retrait
+      setTimeout(() => fetchClientsFromBackend(), 2000);
+    } catch (error) {
+      toast.error(error.message || 'Échec du retrait');
+    }
+  };
 
   const addClientToList = async (clientAddr) => {
     if (!clientAddr) return;
