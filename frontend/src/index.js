@@ -11,17 +11,17 @@ import './index.css';
 const queryClient = new QueryClient();
 
 // Configuration Web3Modal
-const projectId = 'a90989fe98485d8df57542f1c7f59bd0'; // Project ID public pour démo
+const projectId = '762758307ff6761e3e2a1340348775f1'; // Project ID WalletConnect
 
 createWeb3Modal({
   wagmiConfig: config,
   projectId,
-  enableAnalytics: true,
-  enableOnramp: true,
+  enableAnalytics: false,
+  enableOnramp: false,
   themeMode: 'dark',
   themeVariables: {
-    '--w3m-accent': 'hsl(158, 64%, 45%)',
-    '--w3m-border-radius-master': '0.625rem'
+    '--w3m-accent': '#E31B23',
+    '--w3m-border-radius-master': '8px'
   }
 });
 
