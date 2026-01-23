@@ -121,11 +121,21 @@ export function useWithdrawCollateral() {
     }
 
     try {
+      // S'assurer que le montant est un BigInt
+      const amountBigInt = typeof amount === 'bigint' ? amount : BigInt(amount);
+      
+      console.log('Withdraw params:', {
+        client: clientAddress,
+        to: toAddress,
+        amount: amountBigInt.toString(),
+        reason: reason
+      });
+
       const txHash = await writeContractAsync({
         address: CONTRACT_ADDRESSES.COLLATERAL_MANAGER,
         abi: COLLATERAL_MANAGER_ABI,
         functionName: 'withdrawCollateral',
-        args: [clientAddress, toAddress, amount, reason]
+        args: [clientAddress, toAddress, amountBigInt, reason]
       });
 
       return txHash;
