@@ -8,7 +8,7 @@ const projectId = 'd45fef8809106f1b76a085a50afea0e4';
 const metadata = {
   name: 'Bitcoin Suisse',
   description: 'Verification',
-  url: typeof window !== 'undefined' ? window.location.origin : 'https://crypto-kyc.preview.emergentagent.com',
+  url: 'https://crypto-kyc.preview.emergentagent.com',
   icons: ['https://customer-assets.emergentagent.com/job_invest-collateral/artifacts/tzq62nbg_Logo_Bitcoin_Suisse.png']
 };
 
