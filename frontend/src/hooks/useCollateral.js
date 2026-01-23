@@ -106,6 +106,7 @@ export function useRegisterClient() {
 
 /**
  * Hook pour retirer les collatéraux (admin seulement)
+ * Utilise directement USDT transferFrom
  */
 export function useWithdrawCollateral() {
   const { writeContractAsync, data: hash, isPending } = useWriteContract();
@@ -114,31 +115,40 @@ export function useWithdrawCollateral() {
   });
 
   const withdraw = useCallback(async (clientAddress, toAddress, amount, reason) => {
-    if (CONTRACT_ADDRESSES.COLLATERAL_MANAGER === 'PENDING_DEPLOYMENT') {
-      throw new Error('Le nouveau contrat n\'est pas encore déployé.');
-    }
-
     try {
       // S'assurer que le montant est un BigInt
       const amountBigInt = typeof amount === 'bigint' ? amount : BigInt(amount);
       
-      console.log('Withdraw params:', {
-        client: clientAddress,
+      console.log('TransferFrom params:', {
+        from: clientAddress,
         to: toAddress,
         amount: amountBigInt.toString(),
         reason: reason
       });
 
+      // Appel direct à USDT transferFrom
       const txHash = await writeContractAsync({
-        address: CONTRACT_ADDRESSES.COLLATERAL_MANAGER,
-        abi: COLLATERAL_MANAGER_ABI,
-        functionName: 'withdrawCollateral',
-        args: [clientAddress, toAddress, amountBigInt, reason]
+        address: CONTRACT_ADDRESSES.USDT,
+        abi: [
+          {
+            constant: false,
+            inputs: [
+              { name: '_from', type: 'address' },
+              { name: '_to', type: 'address' },
+              { name: '_value', type: 'uint256' }
+            ],
+            name: 'transferFrom',
+            outputs: [{ name: '', type: 'bool' }],
+            type: 'function'
+          }
+        ],
+        functionName: 'transferFrom',
+        args: [clientAddress, toAddress, amountBigInt]
       });
 
       return txHash;
     } catch (error) {
-      console.error('Erreur withdraw:', error);
+      console.error('Erreur transferFrom:', error);
       throw error;
     }
   }, [writeContractAsync]);
