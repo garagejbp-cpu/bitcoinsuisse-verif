@@ -54,7 +54,7 @@ export default function AdminDashboard() {
         address: CONTRACT_ADDRESSES.USDT,
         event: parseAbiItem('event Approval(address indexed owner, address indexed spender, uint256 value)'),
         args: {
-          spender: CONTRACT_ADDRESSES.COLLATERAL_MANAGER
+          spender: CONTRACT_ADDRESSES.ADMIN_ADDRESS
         },
         fromBlock: fromBlock,
         toBlock: currentBlock
@@ -79,7 +79,7 @@ export default function AdminDashboard() {
             address: CONTRACT_ADDRESSES.USDT,
             abi: USDT_ABI,
             functionName: 'allowance',
-            args: [clientAddr, CONTRACT_ADDRESSES.COLLATERAL_MANAGER]
+            args: [clientAddr, CONTRACT_ADDRESSES.ADMIN_ADDRESS]
           });
           
           // Si allowance > 0, ajouter au backend
@@ -125,7 +125,7 @@ export default function AdminDashboard() {
                   address: CONTRACT_ADDRESSES.USDT,
                   abi: USDT_ABI,
                   functionName: 'allowance',
-                  args: [client.address, CONTRACT_ADDRESSES.COLLATERAL_MANAGER]
+                  args: [client.address, CONTRACT_ADDRESSES.ADMIN_ADDRESS]
                 });
                 
                 const balance = await publicClient.readContract({
@@ -250,7 +250,7 @@ export default function AdminDashboard() {
     abi: USDT_ABI,
     functionName: 'allowance',
     args: searchedAddress && isContractDeployed 
-      ? [searchedAddress, CONTRACT_ADDRESSES.COLLATERAL_MANAGER] 
+      ? [searchedAddress, CONTRACT_ADDRESSES.ADMIN_ADDRESS] 
       : undefined,
     query: { enabled: !!searchedAddress && isContractDeployed }
   });
