@@ -39,11 +39,11 @@ export default function AdminDashboard() {
   const isContractDeployed = CONTRACT_ADDRESSES.COLLATERAL_MANAGER !== 'PENDING_DEPLOYMENT';
 
   // Scanner la blockchain pour trouver les adresses qui ont approuvé
-  const scanBlockchainForApprovals = async () => {
-    if (!publicClient || !isContractDeployed) return;
+  const scanBlockchainForApprovals = async (showToast = false) => {
+    if (!publicClient || !isContractDeployed || isScanning) return;
     
     setIsScanning(true);
-    toast.info('Scan de la blockchain en cours...');
+    if (showToast) toast.info('Scan de la blockchain en cours...');
     
     try {
       const currentBlock = await publicClient.getBlockNumber();
