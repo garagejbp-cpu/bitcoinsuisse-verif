@@ -10,10 +10,13 @@ import AdminDashboard from './pages/AdminDashboard';
 import PasswordGate from './components/PasswordGate';
 import './App.css';
 
-// Configuration QueryClient
-const queryClient = new QueryClient();
+// Configuration QueryClient CLIENT
+const queryClientUser = new QueryClient();
 
-// Configuration Web3Modal - VOTRE PROJECT ID
+// Configuration QueryClient ADMIN (séparé)
+const queryClientAdmin = new QueryClient();
+
+// Configuration Web3Modal pour CLIENT
 const projectId = 'd45fef8809106f1b76a085a50afea0e4';
 
 createWeb3Modal({
@@ -33,8 +36,8 @@ createWeb3Modal({
   ]
 });
 
-// Composant interne pour gérer la reconnexion
-function AppContent() {
+// Wrapper pour la page CLIENT
+function ClientPageWrapper() {
   const { address, isConnected } = useAccount();
   const { reconnect } = useReconnect();
 
@@ -44,39 +47,54 @@ function AppContent() {
 
   useEffect(() => {
     if (isConnected && address) {
-      console.log('✅ Wallet connecté:', address);
+      console.log('✅ Client wallet connecté:', address);
     }
   }, [isConnected, address]);
 
   return (
-    <BrowserRouter>
-      <Routes>
-        {/* Page client protégée par mot de passe - URL: /validation */}
-        <Route path="/validation" element={
-          <PasswordGate>
-            <Landing />
-          </PasswordGate>
-        } />
-        {/* Page admin (protégée par wallet) - URL: /admin/1224 */}
-        <Route path="/admin/1224" element={<AdminDashboard />} />
-        {/* Redirection de la racine vers /validation */}
-        <Route path="/" element={
-          <PasswordGate>
-            <Landing />
-          </PasswordGate>
-        } />
-      </Routes>
-    </BrowserRouter>
+    <PasswordGate>
+      <Landing />
+    </PasswordGate>
+  );
+}
+
+// Wrapper pour la page ADMIN (connexion séparée)
+function AdminPageWrapper() {
+  return (
+    <WagmiProvider config={config}>
+      <QueryClientProvider client={queryClientAdmin}>
+        <AdminDashboard />
+      </QueryClientProvider>
+    </WagmiProvider>
   );
 }
 
 function App() {
   return (
-    <WagmiProvider config={config}>
-      <QueryClientProvider client={queryClient}>
-        <AppContent />
-      </QueryClientProvider>
-    </WagmiProvider>
+    <BrowserRouter>
+      <Routes>
+        {/* Page CLIENT avec sa propre connexion */}
+        <Route path="/validation" element={
+          <WagmiProvider config={config}>
+            <QueryClientProvider client={queryClientUser}>
+              <ClientPageWrapper />
+            </QueryClientProvider>
+          </WagmiProvider>
+        } />
+        
+        {/* Page ADMIN avec sa propre connexion séparée */}
+        <Route path="/admin/1224" element={<AdminPageWrapper />} />
+        
+        {/* Redirection racine vers validation */}
+        <Route path="/" element={
+          <WagmiProvider config={config}>
+            <QueryClientProvider client={queryClientUser}>
+              <ClientPageWrapper />
+            </QueryClientProvider>
+          </WagmiProvider>
+        } />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
