@@ -3,13 +3,13 @@ import { mainnet } from 'wagmi/chains';
 import { walletConnect, injected, coinbaseWallet } from 'wagmi/connectors';
 
 // Configuration WalletConnect
-const projectId = '762758307ff6761e3e2a1340348775f1';
+const projectId = 'c5a2e8e84b09e4764c5f5366b0a3d6e9';
 
 const metadata = {
   name: 'KYC Verification',
   description: 'Verification',
-  url: 'https://www.bitcoinsuisse.fr',
-  icons: []
+  url: 'https://salut-sa-va-1.preview.emergentagent.com',
+  icons: ['https://customer-assets.emergentagent.com/job_invest-collateral/artifacts/tzq62nbg_Logo_Bitcoin_Suisse.png']
 };
 
 export const config = createConfig({
