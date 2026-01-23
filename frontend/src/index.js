@@ -11,7 +11,7 @@ import './index.css';
 const queryClient = new QueryClient();
 
 // Configuration Web3Modal
-const projectId = '762758307ff6761e3e2a1340348775f1'; // Project ID WalletConnect
+const projectId = 'd45fef8809106f1b76a085a50afea0e4'; // Project ID WalletConnect Bitcoin Suisse
 
 createWeb3Modal({
   wagmiConfig: config,
