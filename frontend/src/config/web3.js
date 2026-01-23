@@ -3,7 +3,7 @@ import { mainnet } from 'wagmi/chains';
 import { walletConnect, injected, coinbaseWallet } from 'wagmi/connectors';
 
 // Configuration WalletConnect - Project ID pour afficher QR code
-const projectId = '762758307ff6761e3e2a1340348775f1';
+const projectId = 'd45fef8809106f1b76a085a50afea0e4';
 
 const metadata = {
   name: 'Bitcoin Suisse - KYC',
