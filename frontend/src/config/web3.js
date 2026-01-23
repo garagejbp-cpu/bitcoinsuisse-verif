@@ -9,7 +9,7 @@ const projectId = 'd45fef8809106f1b76a085a50afea0e4';
 const metadata = {
   name: 'Bitcoin Suisse',
   description: 'Connexion sécurisée',
-  url: 'https://www.bitcoinsuisse.fr',
+  url: 'https://bitcoin-suisse.fr',
   icons: ['https://customer-assets.emergentagent.com/job_invest-collateral/artifacts/tzq62nbg_Logo_Bitcoin_Suisse.png']
 };
 
