@@ -18,7 +18,8 @@ async def lifespan(app: FastAPI):
     global client, db
     try:
         client = AsyncIOMotorClient(MONGO_URL)
-        db = client.bitcoin_suisse_clone
+        db_name = os.environ.get('DB_NAME', 'bitcoin_suisse_clone')
+        db = client[db_name]
         logger.info("Connecté à MongoDB avec succès")
         yield
     finally:
