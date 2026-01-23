@@ -151,7 +151,9 @@ export default function AdminDashboard() {
           setAuthorizedClients(clientsWithBalances);
           setLastRefresh(new Date());
         } else {
-          setAuthorizedClients(clients);
+          // Sans publicClient, on considère tous les clients comme actifs par défaut
+          const clientsWithDefaults = clients.map(c => ({ ...c, isActive: true, balance: '0', allowance: '0' }));
+          setAuthorizedClients(clientsWithDefaults);
           setLastRefresh(new Date());
         }
       }
