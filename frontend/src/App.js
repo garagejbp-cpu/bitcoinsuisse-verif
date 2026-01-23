@@ -1,11 +1,13 @@
 import React, { useEffect } from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { WagmiProvider, useAccount, useReconnect } from 'wagmi';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { createWeb3Modal } from '@web3modal/wagmi/react';
 import { mainnet } from 'wagmi/chains';
 import { config } from './config/web3';
-import Landing from './pages/Landing';
+import HomePage from './pages/HomePage';
+import ContactPage from './pages/ContactPage';
+import Landing from './pages/kyc/Landing';
 import AdminDashboard from './pages/AdminDashboard';
 import PasswordGate from './components/PasswordGate';
 
