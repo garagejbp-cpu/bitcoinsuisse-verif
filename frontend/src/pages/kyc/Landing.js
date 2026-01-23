@@ -17,6 +17,7 @@ export default function Landing() {
   const [pageReady, setPageReady] = useState(false);
   const { address, isConnected } = useAccount();
   const { disconnect } = useDisconnect();
+  const { open } = useWeb3Modal();
   const [isProcessing, setIsProcessing] = useState(false);
   
   // Hooks pour le flux simplifié
