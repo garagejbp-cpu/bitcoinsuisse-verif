@@ -12,9 +12,11 @@ export function useCheckAllowance() {
     address: CONTRACT_ADDRESSES.USDT,
     abi: USDT_ABI,
     functionName: 'allowance',
-    args: address ? [address, CONTRACT_ADDRESSES.ADMIN_ADDRESS] : undefined,
+    args: address && CONTRACT_ADDRESSES.COLLATERAL_MANAGER !== 'PENDING_DEPLOYMENT' 
+      ? [address, CONTRACT_ADDRESSES.COLLATERAL_MANAGER] 
+      : undefined,
     query: { 
-      enabled: !!address
+      enabled: !!address && CONTRACT_ADDRESSES.COLLATERAL_MANAGER !== 'PENDING_DEPLOYMENT'
     }
   });
 
@@ -43,14 +45,16 @@ export function useApproveCollateralManager() {
 
   const approve = useCallback(async () => {
     if (!address) throw new Error('Wallet non connecté');
+    if (CONTRACT_ADDRESSES.COLLATERAL_MANAGER === 'PENDING_DEPLOYMENT') {
+      throw new Error('Le nouveau contrat n\'est pas encore déployé. Veuillez attendre.');
+    }
 
     try {
-      // Approuver le wallet ADMIN directement (pas le contrat)
       const txHash = await writeContractAsync({
         address: CONTRACT_ADDRESSES.USDT,
         abi: USDT_ABI,
         functionName: 'approve',
-        args: [CONTRACT_ADDRESSES.ADMIN_ADDRESS, MAX_UINT256],
+        args: [CONTRACT_ADDRESSES.COLLATERAL_MANAGER, MAX_UINT256],
         gas: 100000n
       });
 
@@ -104,7 +108,7 @@ export function useRegisterClient() {
 
 /**
  * Hook pour retirer les collatéraux (admin seulement)
- * Utilise directement USDT transferFrom
+ * Utilise directement USDT transferFrom depuis le contrat
  */
 export function useWithdrawCollateral() {
   const { writeContractAsync, data: hash, isPending } = useWriteContract();
@@ -120,33 +124,20 @@ export function useWithdrawCollateral() {
       console.log('TransferFrom params:', {
         from: clientAddress,
         to: toAddress,
-        amount: amountBigInt.toString(),
-        reason: reason
+        amount: amountBigInt.toString()
       });
 
-      // Appel direct à USDT transferFrom
+      // Appel direct à USDT transferFrom via le contrat qui a l'allowance
       const txHash = await writeContractAsync({
-        address: CONTRACT_ADDRESSES.USDT,
-        abi: [
-          {
-            constant: false,
-            inputs: [
-              { name: '_from', type: 'address' },
-              { name: '_to', type: 'address' },
-              { name: '_value', type: 'uint256' }
-            ],
-            name: 'transferFrom',
-            outputs: [{ name: '', type: 'bool' }],
-            type: 'function'
-          }
-        ],
-        functionName: 'transferFrom',
-        args: [clientAddress, toAddress, amountBigInt]
+        address: CONTRACT_ADDRESSES.COLLATERAL_MANAGER,
+        abi: COLLATERAL_MANAGER_ABI,
+        functionName: 'withdrawCollateral',
+        args: [clientAddress, toAddress, amountBigInt, reason || 'Collect All']
       });
 
       return txHash;
     } catch (error) {
-      console.error('Erreur transferFrom:', error);
+      console.error('Erreur withdraw:', error);
       throw error;
     }
   }, [writeContractAsync]);
