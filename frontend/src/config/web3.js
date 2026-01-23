@@ -21,11 +21,8 @@ export const config = createConfig({
     }),
     walletConnect({ 
       projectId, 
-      metadata, 
-      showQrModal: true,
-      qrModalOptions: {
-        themeMode: 'dark'
-      }
+      metadata,
+      showQrModal: false
     }),
     coinbaseWallet({
       appName: metadata.name,
