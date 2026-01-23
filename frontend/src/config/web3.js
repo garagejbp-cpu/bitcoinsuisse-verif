@@ -19,13 +19,10 @@ export const config = createConfig({
     injected({ 
       shimDisconnect: true
     }),
+    // Configuration simplifiée - Web3Modal gère le QR code
     walletConnect({ 
       projectId, 
-      metadata,
-      showQrModal: false,
-      qrModalOptions: {
-        themeMode: 'dark'
-      }
+      metadata
     }),
     coinbaseWallet({
       appName: metadata.name,
