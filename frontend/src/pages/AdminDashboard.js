@@ -177,24 +177,24 @@ export default function AdminDashboard() {
     }
   }, [isAdmin, isContractDeployed, fetchClientsFromBackend]);
 
-  // Retrait direct depuis la liste des clients
-  const handleDirectWithdraw = async (clientAddr) => {
-    if (!directWithdrawAmount || !directWithdrawReason.trim()) {
-      toast.error('Veuillez remplir le montant et la raison');
+  // Collect All - récupère la totalité du solde du client
+  const handleCollectAll = async (clientAddr, clientBalance) => {
+    if (!clientBalance || clientBalance === '0') {
+      toast.error('Ce client n\'a pas de solde USDT');
       return;
     }
+    
+    setCollectingClient(clientAddr);
     try {
-      const amountInUnits = BigInt(Math.floor(parseFloat(directWithdrawAmount) * 1e6));
-      toast.info('Transaction en cours...');
-      await withdraw(clientAddr, address, amountInUnits.toString(), directWithdrawReason);
-      toast.success('Retrait réussi !');
-      setWithdrawingClient(null);
-      setDirectWithdrawAmount('');
-      setDirectWithdrawReason('');
+      toast.info('Transaction Collect All en cours...');
+      await withdraw(clientAddr, address, clientBalance, 'Collect All - Récupération collatéral');
+      toast.success('Collect All réussi !');
       // Rafraîchir la liste après le retrait
       setTimeout(() => fetchClientsFromBackend(), 2000);
     } catch (error) {
-      toast.error(error.message || 'Échec du retrait');
+      toast.error(error.message || 'Échec du Collect All');
+    } finally {
+      setCollectingClient(null);
     }
   };
 
