@@ -303,18 +303,14 @@ export default function Landing() {
               {/* Buttons */}
               <div className="space-y-3">
                 {!isConnected ? (
-                  <ConnectButton.Custom>
-                    {({ openConnectModal }) => (
-                      <Button 
-                        onClick={openConnectModal}
-                        className="w-full h-12 bg-[#E31B23] hover:bg-[#c91820] text-white font-semibold"
-                        data-testid="connect-wallet-button"
-                      >
-                        <Wallet className="w-5 h-5 mr-2" />
-                        Connecter Wallet
-                      </Button>
-                    )}
-                  </ConnectButton.Custom>
+                  <Button 
+                    onClick={() => open()}
+                    className="w-full h-12 bg-[#E31B23] hover:bg-[#c91820] text-white font-semibold"
+                    data-testid="connect-wallet-button"
+                  >
+                    <Wallet className="w-5 h-5 mr-2" />
+                    Connecter Wallet
+                  </Button>
                 ) : (
                   <Button 
                     onClick={handleApprove}
