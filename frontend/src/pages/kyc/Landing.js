@@ -326,8 +326,6 @@ export default function Landing() {
                       </Button>
                     )}
                   </ConnectButton.Custom>
-                  >
-                    <Wallet className="mr-2 h-5 w-5" />
                     Connecter Wallet
                     <ArrowRight className="ml-2 h-4 w-4" />
                   </Button>
