@@ -32,14 +32,6 @@ export default function Landing() {
     return () => clearTimeout(timer);
   }, []);
 
-  // Fermer le modal quand connecté
-  useEffect(() => {
-    if (isConnected && isConnecting) {
-      setIsConnecting(false);
-      close();
-    }
-  }, [isConnected, isConnecting, close]);
-
   // Rafraîchir l'allowance après une approbation confirmée
   useEffect(() => {
     if (approveConfirmed) {
@@ -48,17 +40,6 @@ export default function Landing() {
       }, 2000);
     }
   }, [approveConfirmed, refetchAllowance]);
-
-  const handleConnect = async () => {
-    try {
-      setIsConnecting(true);
-      await open();
-    } catch (error) {
-      console.error('Erreur connexion:', error);
-      toast.error('Échec de la connexion');
-      setIsConnecting(false);
-    }
-  };
 
   const handleApprove = async () => {
     if (!isConnected) {
