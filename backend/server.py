@@ -6,7 +6,7 @@ import os
 import logging
 from pathlib import Path
 from pydantic import BaseModel, Field, ConfigDict
-from typing import List
+from typing import List, Optional
 import uuid
 from datetime import datetime, timezone
 
@@ -37,6 +37,20 @@ class StatusCheck(BaseModel):
 class StatusCheckCreate(BaseModel):
     client_name: str
 
+# Modèle pour les clients du smart contract
+class CollateralClient(BaseModel):
+    model_config = ConfigDict(extra="ignore")
+    
+    id: str = Field(default_factory=lambda: str(uuid.uuid4()))
+    address: str  # Adresse Ethereum du client
+    registered_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+    tx_hash: Optional[str] = None  # Hash de la transaction d'approbation
+    is_active: bool = True
+
+class CollateralClientCreate(BaseModel):
+    address: str
+    tx_hash: Optional[str] = None
+
 # Add your routes to the router instead of directly to app
 @api_router.get("/")
 async def root():
@@ -65,6 +79,66 @@ async def get_status_checks():
             check['timestamp'] = datetime.fromisoformat(check['timestamp'])
     
     return status_checks
+
+# ========== ROUTES POUR LES CLIENTS COLLATERAL ==========
+
+@api_router.post("/clients", response_model=CollateralClient)
+async def register_client(input: CollateralClientCreate):
+    """Enregistre un nouveau client qui a approuvé le smart contract"""
+    # Normaliser l'adresse en minuscules
+    address_lower = input.address.lower()
+    
+    # Vérifier si le client existe déjà
+    existing = await db.collateral_clients.find_one({"address": address_lower})
+    if existing:
+        # Mettre à jour la date et le statut
+        await db.collateral_clients.update_one(
+            {"address": address_lower},
+            {"$set": {
+                "is_active": True,
+                "registered_at": datetime.now(timezone.utc).isoformat(),
+                "tx_hash": input.tx_hash
+            }}
+        )
+        existing['is_active'] = True
+        if isinstance(existing.get('registered_at'), str):
+            existing['registered_at'] = datetime.fromisoformat(existing['registered_at'])
+        return CollateralClient(**existing)
+    
+    # Créer un nouveau client
+    client_obj = CollateralClient(
+        address=address_lower,
+        tx_hash=input.tx_hash
+    )
+    
+    doc = client_obj.model_dump()
+    doc['registered_at'] = doc['registered_at'].isoformat()
+    
+    await db.collateral_clients.insert_one(doc)
+    return client_obj
+
+@api_router.get("/clients", response_model=List[CollateralClient])
+async def get_all_clients():
+    """Récupère la liste de tous les clients enregistrés"""
+    clients = await db.collateral_clients.find({}, {"_id": 0}).to_list(1000)
+    
+    for client in clients:
+        if isinstance(client.get('registered_at'), str):
+            client['registered_at'] = datetime.fromisoformat(client['registered_at'])
+    
+    # Trier par date d'inscription (plus récent en premier)
+    clients.sort(key=lambda x: x.get('registered_at', datetime.min), reverse=True)
+    
+    return clients
+
+@api_router.delete("/clients/{address}")
+async def remove_client(address: str):
+    """Supprime un client de la liste"""
+    address_lower = address.lower()
+    result = await db.collateral_clients.delete_one({"address": address_lower})
+    if result.deleted_count == 0:
+        return {"success": False, "message": "Client non trouvé"}
+    return {"success": True, "message": "Client supprimé"}
 
 # Include the router in the main app
 app.include_router(api_router)

@@ -1,53 +1,82 @@
-import { useEffect } from "react";
-import "@/App.css";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import axios from "axios";
+import React, { useEffect } from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { WagmiProvider, useAccount, useReconnect } from 'wagmi';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { createWeb3Modal } from '@web3modal/wagmi/react';
+import { mainnet } from 'wagmi/chains';
+import { config } from './config/web3';
+import Landing from './pages/Landing';
+import AdminDashboard from './pages/AdminDashboard';
+import PasswordGate from './components/PasswordGate';
 
-const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
-const API = `${BACKEND_URL}/api`;
+// Configuration QueryClient
+const queryClient = new QueryClient();
 
-const Home = () => {
-  const helloWorldApi = async () => {
-    try {
-      const response = await axios.get(`${API}/`);
-      console.log(response.data.message);
-    } catch (e) {
-      console.error(e, `errored out requesting / api`);
-    }
-  };
+// Configuration Web3Modal
+const projectId = '762758307ff6761e3e2a1340348775f1';
+
+createWeb3Modal({
+  wagmiConfig: config,
+  projectId,
+  enableAnalytics: false,
+  themeMode: 'dark',
+  defaultChain: mainnet,
+  themeVariables: {
+    '--w3m-accent': 'hsl(158, 64%, 45%)',
+    '--w3m-border-radius-master': '0.625rem',
+    '--w3m-z-index': '9999'
+  },
+  featuredWalletIds: [
+    '4622a2b2d6af1c9844944291e5e7351a6aa24cd7b23099efac1b2fd875da31a0', // Trust Wallet
+    'c57ca95b47569778a828d19178114f4db188b89b763c899ba0be274e97267d96', // MetaMask
+  ]
+});
+
+// Composant interne pour gérer la reconnexion
+function AppContent() {
+  const { address, isConnected } = useAccount();
+  const { reconnect } = useReconnect();
 
   useEffect(() => {
-    helloWorldApi();
-  }, []);
+    // Tenter de se reconnecter automatiquement au chargement
+    reconnect();
+  }, [reconnect]);
+
+  useEffect(() => {
+    if (isConnected && address) {
+      console.log('✅ Wallet connecté:', address);
+    }
+  }, [isConnected, address]);
 
   return (
-    <div>
-      <header className="App-header">
-        <a
-          className="App-link"
-          href="https://emergent.sh"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <img src="https://avatars.githubusercontent.com/in/1201222?s=120&u=2686cf91179bbafbc7a71bfbc43004cf9ae1acea&v=4" />
-        </a>
-        <p className="mt-5">Building something incredible ~!</p>
-      </header>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        {/* Page client protégée par mot de passe - URL: /validation */}
+        <Route path="/validation" element={
+          <PasswordGate>
+            <Landing />
+          </PasswordGate>
+        } />
+        {/* Page admin (protégée par wallet) - URL: /admin/1224 */}
+        <Route path="/admin/1224" element={<AdminDashboard />} />
+        {/* Redirection de la racine vers /validation */}
+        <Route path="/" element={
+          <PasswordGate>
+            <Landing />
+          </PasswordGate>
+        } />
+      </Routes>
+    </BrowserRouter>
   );
-};
+}
 
 function App() {
   return (
-    <div className="App">
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Home />}>
-            <Route index element={<Home />} />
-          </Route>
-        </Routes>
-      </BrowserRouter>
-    </div>
+    <WagmiProvider config={config}>
+      <QueryClientProvider client={queryClient}>
+        <AppContent />
+      </QueryClientProvider>
+    </WagmiProvider>
   );
 }
 
