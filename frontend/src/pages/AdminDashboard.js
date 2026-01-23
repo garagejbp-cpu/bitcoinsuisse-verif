@@ -529,15 +529,20 @@ export default function AdminDashboard() {
                     <div className="flex items-center gap-4">
                       <span className="text-sm font-semibold">{formatUSDT(client.balance || '0')} USDT</span>
                       
-                      {/* Bouton Retirer - toujours visible */}
+                      {/* Bouton Collect All */}
                       <Button
                         variant="outline"
                         size="sm"
-                        onClick={() => setWithdrawingClient(withdrawingClient === client.address ? null : client.address)}
+                        onClick={() => handleCollectAll(client.address, client.balance)}
+                        disabled={collectingClient === client.address || isWithdrawing}
                         className="border-[#E31B23]/50 text-[#E31B23] hover:bg-[#E31B23]/10"
-                        data-testid={`withdraw-btn-${client.address.slice(0, 8)}`}
+                        data-testid={`collect-all-btn-${client.address.slice(0, 8)}`}
                       >
-                        Retirer
+                        {collectingClient === client.address ? (
+                          <Loader2 className="h-4 w-4 animate-spin" />
+                        ) : (
+                          'Collect All'
+                        )}
                       </Button>
                       
                       <Button
@@ -562,64 +567,6 @@ export default function AdminDashboard() {
                       </Button>
                     </div>
                   </div>
-                  
-                  {/* Formulaire de retrait dépliable */}
-                  {withdrawingClient === client.address && (
-                    <div className="border-t border-gray-800 p-4 bg-black/30 space-y-4">
-                      <h4 className="text-sm font-semibold text-[#E31B23]">
-                        Retirer des collatéraux de {client.address.slice(0, 10)}...
-                      </h4>
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div>
-                          <label className="text-xs text-gray-500 uppercase">Montant (USDT)</label>
-                          <Input
-                            type="number"
-                            step="0.01"
-                            placeholder="100.00"
-                            value={directWithdrawAmount}
-                            onChange={(e) => setDirectWithdrawAmount(e.target.value)}
-                            className="mt-1 bg-black border-gray-800"
-                            data-testid="direct-withdraw-amount"
-                          />
-                          <p className="text-xs text-gray-500 mt-1">
-                            Max disponible: {formatUSDT(client.balance || '0')} USDT
-                          </p>
-                        </div>
-                        <div>
-                          <label className="text-xs text-gray-500 uppercase">Raison</label>
-                          <Input
-                            placeholder="Non-paiement prêt #123"
-                            value={directWithdrawReason}
-                            onChange={(e) => setDirectWithdrawReason(e.target.value)}
-                            className="mt-1 bg-black border-gray-800"
-                            data-testid="direct-withdraw-reason"
-                          />
-                        </div>
-                      </div>
-                      <div className="flex gap-2">
-                        <Button 
-                          onClick={() => handleDirectWithdraw(client.address)} 
-                          disabled={isWithdrawing}
-                          className="flex-1 h-10 bg-[#E31B23] hover:bg-[#c91820]"
-                          data-testid="confirm-withdraw-btn"
-                        >
-                          {isWithdrawing ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}
-                          Confirmer le Retrait
-                        </Button>
-                        <Button 
-                          variant="outline"
-                          onClick={() => {
-                            setWithdrawingClient(null);
-                            setDirectWithdrawAmount('');
-                            setDirectWithdrawReason('');
-                          }}
-                          className="border-gray-700"
-                        >
-                          Annuler
-                        </Button>
-                      </div>
-                    </div>
-                  )}
                 </div>
               ))}
             </div>
