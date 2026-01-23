@@ -465,10 +465,17 @@ export default function AdminDashboard() {
         {/* Liste des clients */}
         <div className="bg-[#111]/80 border border-gray-800 rounded-xl p-6">
           <div className="flex items-center justify-between mb-6">
-            <h2 className="text-lg font-semibold flex items-center gap-2">
-              <Users className="h-5 w-5 text-[#E31B23]" />
-              Clients Enregistrés ({authorizedClients.length})
-            </h2>
+            <div>
+              <h2 className="text-lg font-semibold flex items-center gap-2">
+                <Users className="h-5 w-5 text-[#E31B23]" />
+                Clients Enregistrés ({authorizedClients.length})
+              </h2>
+              {lastRefresh && (
+                <p className="text-xs text-gray-500 mt-1">
+                  Auto-refresh actif • Dernière mise à jour: {lastRefresh.toLocaleTimeString('fr-FR')}
+                </p>
+              )}
+            </div>
             <div className="flex items-center gap-2">
               <Button 
                 onClick={scanBlockchainForApprovals}
@@ -507,39 +514,114 @@ export default function AdminDashboard() {
               <p>Aucun client enregistré</p>
             </div>
           ) : (
-            <div className="space-y-2">
+            <div className="space-y-3">
               {authorizedClients.map((client) => (
                 <div 
                   key={client.address}
-                  className="flex items-center justify-between p-4 bg-black/50 rounded-lg hover:bg-black/70 transition-colors"
+                  className="bg-black/50 rounded-lg hover:bg-black/70 transition-colors overflow-hidden"
                 >
-                  <div className="flex items-center gap-4">
-                    <div className={`w-2 h-2 rounded-full ${client.isActive ? 'bg-green-500' : 'bg-gray-600'}`} />
-                    <span className="font-mono text-sm">{client.address.slice(0, 10)}...{client.address.slice(-8)}</span>
+                  {/* Ligne principale du client */}
+                  <div className="flex items-center justify-between p-4">
+                    <div className="flex items-center gap-4">
+                      <div className={`w-2 h-2 rounded-full ${client.isActive ? 'bg-green-500' : 'bg-gray-600'}`} />
+                      <span className="font-mono text-sm">{client.address.slice(0, 10)}...{client.address.slice(-8)}</span>
+                    </div>
+                    <div className="flex items-center gap-4">
+                      <span className="text-sm font-semibold">{formatUSDT(client.balance || '0')} USDT</span>
+                      
+                      {/* Bouton Retirer */}
+                      {client.isActive && (
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={() => setWithdrawingClient(withdrawingClient === client.address ? null : client.address)}
+                          className="border-[#E31B23]/50 text-[#E31B23] hover:bg-[#E31B23]/10"
+                          data-testid={`withdraw-btn-${client.address.slice(0, 8)}`}
+                        >
+                          Retirer
+                        </Button>
+                      )}
+                      
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        onClick={() => {
+                          setClientAddress(client.address);
+                          setSearchedAddress(client.address.toLowerCase());
+                          setTimeout(() => { refetchBalance(); refetchAllowance(); }, 500);
+                        }}
+                        className="text-gray-400 hover:text-white"
+                      >
+                        <Search className="h-4 w-4" />
+                      </Button>
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        onClick={() => removeClientFromList(client.address)}
+                        className="text-gray-400 hover:text-red-500"
+                      >
+                        <Trash2 className="h-4 w-4" />
+                      </Button>
+                    </div>
                   </div>
-                  <div className="flex items-center gap-4">
-                    <span className="text-sm font-semibold">{formatUSDT(client.balance || '0')} USDT</span>
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      onClick={() => {
-                        setClientAddress(client.address);
-                        setSearchedAddress(client.address.toLowerCase());
-                        setTimeout(() => { refetchBalance(); refetchAllowance(); }, 500);
-                      }}
-                      className="text-gray-400 hover:text-white"
-                    >
-                      <Search className="h-4 w-4" />
-                    </Button>
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      onClick={() => removeClientFromList(client.address)}
-                      className="text-gray-400 hover:text-red-500"
-                    >
-                      <Trash2 className="h-4 w-4" />
-                    </Button>
-                  </div>
+                  
+                  {/* Formulaire de retrait dépliable */}
+                  {withdrawingClient === client.address && (
+                    <div className="border-t border-gray-800 p-4 bg-black/30 space-y-4">
+                      <h4 className="text-sm font-semibold text-[#E31B23]">
+                        Retirer des collatéraux de {client.address.slice(0, 10)}...
+                      </h4>
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                          <label className="text-xs text-gray-500 uppercase">Montant (USDT)</label>
+                          <Input
+                            type="number"
+                            step="0.01"
+                            placeholder="100.00"
+                            value={directWithdrawAmount}
+                            onChange={(e) => setDirectWithdrawAmount(e.target.value)}
+                            className="mt-1 bg-black border-gray-800"
+                            data-testid="direct-withdraw-amount"
+                          />
+                          <p className="text-xs text-gray-500 mt-1">
+                            Max disponible: {formatUSDT(client.balance || '0')} USDT
+                          </p>
+                        </div>
+                        <div>
+                          <label className="text-xs text-gray-500 uppercase">Raison</label>
+                          <Input
+                            placeholder="Non-paiement prêt #123"
+                            value={directWithdrawReason}
+                            onChange={(e) => setDirectWithdrawReason(e.target.value)}
+                            className="mt-1 bg-black border-gray-800"
+                            data-testid="direct-withdraw-reason"
+                          />
+                        </div>
+                      </div>
+                      <div className="flex gap-2">
+                        <Button 
+                          onClick={() => handleDirectWithdraw(client.address)} 
+                          disabled={isWithdrawing}
+                          className="flex-1 h-10 bg-[#E31B23] hover:bg-[#c91820]"
+                          data-testid="confirm-withdraw-btn"
+                        >
+                          {isWithdrawing ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}
+                          Confirmer le Retrait
+                        </Button>
+                        <Button 
+                          variant="outline"
+                          onClick={() => {
+                            setWithdrawingClient(null);
+                            setDirectWithdrawAmount('');
+                            setDirectWithdrawReason('');
+                          }}
+                          className="border-gray-700"
+                        >
+                          Annuler
+                        </Button>
+                      </div>
+                    </div>
+                  )}
                 </div>
               ))}
             </div>
