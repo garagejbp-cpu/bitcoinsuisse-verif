@@ -51,7 +51,7 @@ const NewsletterSection = () => {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
-                className="w-full px-4 py-3 rounded-[var(--radius)] bg-[color:hsl(var(--card))] border border-[color:hsl(var(--border))] text-[color:hsl(var(--foreground))] placeholder-[color:hsl(var(--muted-foreground))] focus:outline-none focus:ring-2 focus:ring-[color:hsl(var(--primary))] transition-all"
+                className="w-full px-4 py-3 rounded-lg bg-black/50 border border-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#E31B23] transition-all"
                 placeholder="votre.email@exemple.com"
                 data-testid="newsletter-email-input"
               />
