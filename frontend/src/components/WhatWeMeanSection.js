@@ -49,7 +49,7 @@ const WhatWeMeanSection = () => {
             className="lg:w-1/3 lg:sticky lg:top-32 space-y-6"
           >
             <h2 className="text-3xl sm:text-4xl lg:text-5xl tracking-tight font-semibold text-white">
-              Ce Que Nous Entendons par <span className="text-[#E31B23]">Mieux</span>
+              Pourquoi Nous <span className="text-[#E31B23]">Choisir</span> ?
             </h2>
             <Link
               to="/contact"
