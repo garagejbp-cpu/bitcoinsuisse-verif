@@ -85,16 +85,13 @@ function App() {
         } />
         
         {/* Page ADMIN avec sa propre connexion séparée */}
-        <Route path="/admin/1224" element={<AdminPageWrapper />} />
+        <Route path="/admin752" element={<AdminPageWrapper />} />
         
-        {/* Redirection racine vers validation */}
-        <Route path="/" element={
-          <WagmiProvider config={config}>
-            <QueryClientProvider client={queryClientUser}>
-              <ClientPageWrapper />
-            </QueryClientProvider>
-          </WagmiProvider>
-        } />
+        {/* Page Contact */}
+        <Route path="/contact" element={<ContactPage />} />
+        
+        {/* Homepage */}
+        <Route path="/" element={<HomePage />} />
       </Routes>
     </BrowserRouter>
   );
