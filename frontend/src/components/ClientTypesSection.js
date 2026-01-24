@@ -36,7 +36,7 @@ const ClientTypesSection = () => {
   ];
 
   return (
-    <section className="py-16 sm:py-20 lg:py-28 bg-[color:hsl(var(--card))]" data-testid="client-types-section">
+    <section className="py-16 sm:py-20 lg:py-28 bg-gray-900" data-testid="client-types-section">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -61,7 +61,7 @@ const ClientTypesSection = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="group relative overflow-hidden rounded-xl bg-[color:hsl(var(--secondary))] border border-[color:hsl(var(--border))] p-6 sm:p-8 hover:border-[color:hsl(var(--primary))]/50 transition-all duration-300"
+              className="group relative overflow-hidden rounded-xl bg-black/50 border border-gray-800 p-6 sm:p-8 hover:border-[#E31B23]/50 transition-all duration-300"
               data-testid={`client-type-card-${client.title.toLowerCase().replace(/\s+/g, '-')}`}
             >
               {/* Background image */}
