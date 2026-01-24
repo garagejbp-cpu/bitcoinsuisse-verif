@@ -109,7 +109,7 @@ const Navigation = () => {
             ))}
             <Link
               to="/contact"
-              className="block text-center py-3 px-5 rounded-[var(--radius)] bg-[color:hsl(var(--primary))] text-[color:hsl(var(--primary-foreground))] hover:bg-[color:hsl(var(--primary))]/90 transition-colors"
+              className="block text-center py-3 px-5 rounded-lg bg-[#E31B23] text-white hover:bg-[#c91820] transition-colors"
               onClick={() => setMobileMenuOpen(false)}
             >
               Contact
