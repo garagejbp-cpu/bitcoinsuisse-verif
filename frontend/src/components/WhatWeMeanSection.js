@@ -80,16 +80,16 @@ const WhatWeMeanSection = () => {
                 data-testid="better-point-card"
               >
                 <div className="flex items-start gap-4">
-                  <div className="flex-shrink-0 h-10 w-10 rounded-full bg-[color:hsl(var(--primary))]/10 flex items-center justify-center">
-                    <span className="text-lg font-bold text-[color:hsl(var(--primary))]">
+                  <div className="flex-shrink-0 h-10 w-10 rounded-full bg-[#E31B23]/10 flex items-center justify-center">
+                    <span className="text-lg font-bold text-[#E31B23]">
                       {point.number}
                     </span>
                   </div>
                   <div className="flex-1 space-y-2">
-                    <h3 className="text-xl font-semibold text-[color:hsl(var(--foreground))]">
+                    <h3 className="text-xl font-semibold text-white">
                       {point.title}
                     </h3>
-                    <p className="text-base text-[color:hsl(var(--muted-foreground))] leading-relaxed">
+                    <p className="text-base text-gray-300 leading-relaxed">
                       {point.description}
                     </p>
                   </div>
