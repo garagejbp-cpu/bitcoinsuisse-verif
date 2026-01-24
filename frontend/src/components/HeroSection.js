@@ -35,10 +35,10 @@ const HeroSection = () => {
             className="space-y-6"
           >
             <h1 className="text-4xl sm:text-5xl lg:text-6xl tracking-tight font-semibold text-[color:hsl(var(--foreground))]">
-              Bienvenue dans le <span className="text-[color:hsl(var(--primary))]">Meilleur</span>
+              La Meilleure Solution B2B de Prêt en <span className="text-[color:hsl(var(--primary))]">USDT ERC-20</span>
             </h1>
             <p className="text-base sm:text-lg text-[color:hsl(var(--muted-foreground))] leading-relaxed max-w-2xl">
-              Nous sommes le premier fournisseur de services financiers crypto premium suisse, conçu, construit et géré par des experts du secteur. Bénéficiez d'une expertise sectorielle approfondie, d'une gamme de produits cohérente et adaptable et d'un service client inégalé.
+              Financez vos projets à partir de 1 million d'euros avec seulement 20% d'apport. Prêt en USDT, collatéral non bloqué, processus simplifié. La solution de financement crypto pensée pour les professionnels.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 pt-4">
               <Link
