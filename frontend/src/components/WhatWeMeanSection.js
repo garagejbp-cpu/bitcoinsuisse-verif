@@ -6,33 +6,33 @@ const WhatWeMeanSection = () => {
   const points = [
     {
       number: '1',
-      title: 'Meilleure personnalisation et service',
-      description: 'Nous aimons écouter et nous adapter. Parlez-nous de vos besoins. Si vous êtes fondateur ou investisseur précoce d\'un token que nous ne supportons pas encore, nous pouvons construire une solution sur mesure pour répondre à vos besoins.'
+      title: 'Accompagnement Personnalisé',
+      description: 'Chaque dossier est unique. Votre Relationship Manager dédié analyse vos besoins spécifiques et structure une solution de financement sur mesure. Que vous soyez une entreprise en expansion ou un investisseur institutionnel, nous adaptons nos conditions à votre situation.'
     },
     {
       number: '2',
-      title: 'Meilleure exécution',
-      description: 'Intégration transparente sur plus de 12 des plus grandes plateformes mondiales pour une meilleure exécution, offrant une meilleure valeur pour les grandes commandes et de meilleurs prix pour les altcoins moins liquides. Neuf types d\'ordres différents, y compris des options d\'exécution intelligentes, via une seule interface et un seul contrepartie suisse.'
+      title: 'Processus Accéléré',
+      description: 'Fini les délais bancaires interminables. Notre processus digitalisé et notre comité de direction réactif vous garantissent une réponse sous 5 jours ouvrés. Déblocage des fonds en USDT ERC-20 sous 48 à 72 heures après validation.'
     },
     {
       number: '3',
-      title: 'Meilleure transparence des transactions',
-      description: 'Nous vous fournissons une transparence complète sur les détails d\'exécution, tels que la plateforme et les frais pour chaque transaction.'
+      title: 'Transparence Totale',
+      description: 'Aucun frais caché, aucune mauvaise surprise. TAEG clairement défini, échéancier de remboursement détaillé et conditions contractuelles limpides. Vous savez exactement ce que vous payez, dès le premier jour.'
     },
     {
       number: '4',
-      title: 'Meilleures récompenses de staking',
-      description: 'Nos nœuds de staking utilisent des systèmes et processus dédiés et optimisés pour améliorer les récompenses. Notre historique de succès nous a aidés à devenir l\'un des quatre principaux fournisseurs de staking avec garde au monde.'
+      title: 'Collatéral Non Bloqué',
+      description: 'Contrairement aux prêteurs traditionnels, nous n\'immobilisons pas vos actifs. Justifiez simplement de 20% du montant emprunté et conservez la pleine disposition de votre trésorerie. Votre capital reste productif.'
     },
     {
       number: '5',
-      title: 'Meilleures options de prêt',
-      description: 'Nous offrons certains des services de prêt collatéralisés les plus flexibles du secteur, permettant à nos clients d\'emprunter en USD, EUR et CHF en utilisant toute combinaison de plus de 16 actifs en garantie, y compris les actifs stakés.'
+      title: 'Flexibilité de Remboursement',
+      description: 'Échéances mensuelles, trimestrielles ou in fine selon votre flux de trésorerie. Possibilité de remboursement anticipé sans pénalités. Des conditions pensées pour s\'adapter à la réalité de votre activité.'
     },
     {
       number: '6',
-      title: 'Meilleure expertise native',
-      description: 'Parlez à ceux qui savent. Nous sommes sur le marché depuis 2013, avons joué un rôle clé dans le lancement de certains des plus grands protocoles de couche 1, et avons une équipe composée d\'experts crypto natifs.'
+      title: 'Expertise Institutionnelle',
+      description: 'Une équipe d\'analystes financiers et d\'experts blockchain à votre service. Due diligence rigoureuse, conformité réglementaire (KYC/AML) et cadre juridique solide. La sécurité d\'un partenaire institutionnel, l\'agilité de la finance décentralisée.'
     }
   ];
 
