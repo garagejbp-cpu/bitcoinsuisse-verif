@@ -48,12 +48,12 @@ const WhatWeMeanSection = () => {
             transition={{ duration: 0.5 }}
             className="lg:w-1/3 lg:sticky lg:top-32 space-y-6"
           >
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl tracking-tight font-semibold text-[color:hsl(var(--foreground))]">
-              Ce Que Nous Entendons par <span className="text-[color:hsl(var(--primary))]">Mieux</span>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl tracking-tight font-semibold text-white">
+              Ce Que Nous Entendons par <span className="text-[#E31B23]">Mieux</span>
             </h2>
             <Link
               to="/contact"
-              className="inline-flex items-center justify-center h-12 px-6 rounded-[var(--radius)] bg-[color:hsl(var(--primary))] text-[color:hsl(var(--primary-foreground))] hover:bg-[color:hsl(var(--primary))]/90 transition-colors duration-200 active:scale-[0.98] font-medium"
+              className="inline-flex items-center justify-center h-12 px-6 rounded-lg bg-[#E31B23] text-white hover:bg-[#c91820] transition-colors duration-200 active:scale-[0.98] font-medium"
               data-testid="what-we-mean-cta"
             >
               Devenir Client
