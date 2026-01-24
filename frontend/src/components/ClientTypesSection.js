@@ -45,11 +45,11 @@ const ClientTypesSection = () => {
           transition={{ duration: 0.5 }}
           className="text-center mb-12"
         >
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl tracking-tight font-semibold text-[color:hsl(var(--foreground))] mb-4">
-            Je suis...
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl tracking-tight font-semibold text-white mb-4">
+            Votre Profil d'<span className="text-[#E31B23]">Emprunteur</span>
           </h2>
-          <p className="text-base sm:text-lg text-[color:hsl(var(--muted-foreground))]">
-            Nous avons une offre sur mesure pour différents types de clients et besoins
+          <p className="text-base sm:text-lg text-gray-400">
+            Une solution de financement adaptée à chaque structure et à chaque besoin
           </p>
         </motion.div>
 
