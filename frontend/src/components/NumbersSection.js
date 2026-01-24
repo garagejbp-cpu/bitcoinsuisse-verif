@@ -50,10 +50,10 @@ const NumbersSection = () => {
               className="text-center space-y-3"
               data-testid="stat-card"
             >
-              <div className="text-4xl sm:text-5xl lg:text-6xl font-bold text-[color:hsl(var(--primary))]">
+              <div className="text-4xl sm:text-5xl lg:text-6xl font-bold text-[#E31B23]">
                 {stat.value}
               </div>
-              <p className="text-sm sm:text-base text-[color:hsl(var(--muted-foreground))] leading-relaxed">
+              <p className="text-sm sm:text-base text-gray-300 leading-relaxed">
                 {stat.label}
               </p>
             </motion.div>
