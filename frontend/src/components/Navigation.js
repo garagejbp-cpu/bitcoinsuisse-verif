@@ -52,7 +52,7 @@ const Navigation = () => {
             ))}
             <Link
               to="/contact"
-              className="inline-flex items-center justify-center h-11 px-5 rounded-[var(--radius)] bg-[color:hsl(var(--primary))] text-[color:hsl(var(--primary-foreground))] hover:bg-[color:hsl(var(--primary))]/90 transition-colors duration-200 active:scale-[0.98]"
+              className="inline-flex items-center justify-center h-11 px-5 rounded-lg bg-[#E31B23] text-white hover:bg-[#c91820] transition-colors duration-200 active:scale-[0.98]"
               data-testid="nav-contact-button"
             >
               Contact
