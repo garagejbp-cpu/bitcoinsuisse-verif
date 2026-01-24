@@ -28,7 +28,7 @@ createWeb3Modal({
   themeMode: 'dark',
   defaultChain: mainnet,
   themeVariables: {
-    '--w3m-accent': 'hsl(158, 64%, 45%)',
+    '--w3m-accent': 'hsl(358, 82%, 47%)',
     '--w3m-border-radius-master': '0.625rem',
     '--w3m-z-index': '9999'
   },
