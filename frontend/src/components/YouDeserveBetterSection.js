@@ -42,8 +42,8 @@ const YouDeserveBetterSection = () => {
           transition={{ duration: 0.5 }}
           className="text-center mb-16"
         >
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl tracking-tight font-semibold text-[color:hsl(var(--foreground))]">
-            Vous Méritez <span className="text-[color:hsl(var(--primary))]">Mieux</span>
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl tracking-tight font-semibold text-white">
+            Vous Méritez <span className="text-[#E31B23]">Mieux</span>
           </h2>
         </motion.div>
 
