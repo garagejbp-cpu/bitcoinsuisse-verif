@@ -2,7 +2,7 @@ import * as React from "react";
 import { cn } from "../../lib/utils";
 
 const Button = React.forwardRef(({ className, variant = "default", size = "default", ...props }, ref) => {
-  const baseStyles = "inline-flex items-center justify-center rounded-[0.625rem] font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(158,64%,45%)] disabled:pointer-events-none disabled:opacity-50";
+  const baseStyles = "inline-flex items-center justify-center rounded-[0.625rem] font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(358,82%,47%)] disabled:pointer-events-none disabled:opacity-50";
   
   const variants = {
     default: "bg-emerald-600 text-white hover:bg-emerald-500 active:scale-[0.98]",
