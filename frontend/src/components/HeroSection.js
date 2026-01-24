@@ -34,23 +34,23 @@ const HeroSection = () => {
             transition={{ duration: 0.6, ease: 'easeOut' }}
             className="space-y-6"
           >
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl tracking-tight font-semibold text-[color:hsl(var(--foreground))]">
-              La Meilleure Solution B2B de Prêt en <span className="text-[color:hsl(var(--primary))]">USDT ERC-20</span>
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl tracking-tight font-semibold text-white">
+              La Meilleure Solution B2B de Prêt en <span className="text-[#E31B23]">USDT ERC-20</span>
             </h1>
-            <p className="text-base sm:text-lg text-[color:hsl(var(--muted-foreground))] leading-relaxed max-w-2xl">
+            <p className="text-base sm:text-lg text-gray-300 leading-relaxed max-w-2xl">
               Financez vos projets à partir de 1 million d'euros avec seulement 20% d'apport. Prêt en USDT, collatéral non bloqué, processus simplifié. La solution de financement crypto pensée pour les professionnels.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 pt-4">
               <Link
                 to="/contact"
-                className="inline-flex items-center justify-center h-12 px-6 rounded-[var(--radius)] bg-[color:hsl(var(--primary))] text-[color:hsl(var(--primary-foreground))] hover:bg-[color:hsl(var(--primary))]/90 transition-colors duration-200 active:scale-[0.98] font-medium"
+                className="inline-flex items-center justify-center h-12 px-6 rounded-lg bg-[#E31B23] text-white hover:bg-[#c91820] transition-colors duration-200 active:scale-[0.98] font-medium"
                 data-testid="hero-primary-cta-button"
               >
                 Devenir Client
               </Link>
               <Link
                 to="/contact"
-                className="inline-flex items-center justify-center h-12 px-6 rounded-[var(--radius)] bg-transparent text-[color:hsl(var(--foreground))] border border-[color:hsl(var(--border))] hover:bg-[color:hsl(var(--accent))]/40 transition-colors duration-200 active:scale-[0.98] font-medium"
+                className="inline-flex items-center justify-center h-12 px-6 rounded-lg bg-transparent text-white border border-gray-600 hover:bg-white/10 transition-colors duration-200 active:scale-[0.98] font-medium"
                 data-testid="hero-secondary-cta-button"
               >
                 Ou parlons-en d'abord !
