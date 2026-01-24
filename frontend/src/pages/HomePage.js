@@ -2,6 +2,7 @@ import React from 'react';
 import Navigation from '../components/Navigation';
 import Footer from '../components/Footer';
 import HeroSection from '../components/HeroSection';
+import ProcessSection from '../components/ProcessSection';
 import YouDeserveBetterSection from '../components/YouDeserveBetterSection';
 import ClientTypesSection from '../components/ClientTypesSection';
 import TestimonialsSection from '../components/TestimonialsSection';
@@ -15,9 +16,10 @@ import CookieBanner from '../components/CookieBanner';
 
 const HomePage = () => {
   return (
-    <div className="min-h-screen bg-[color:hsl(var(--background))]">
+    <div className="min-h-screen bg-black">
       <Navigation />
       <HeroSection />
+      <ProcessSection />
       <YouDeserveBetterSection />
       <ClientTypesSection />
       <TestimonialsSection />
