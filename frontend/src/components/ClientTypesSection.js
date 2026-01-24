@@ -75,21 +75,12 @@ const ClientTypesSection = () => {
               </div>
 
               <div className="relative z-10 space-y-4">
-                <h3 className="text-xl sm:text-2xl font-semibold text-[color:hsl(var(--foreground))]">
+                <h3 className="text-xl sm:text-2xl font-semibold text-white">
                   {client.title}
                 </h3>
-                <p className="text-base text-[color:hsl(var(--muted-foreground))] leading-relaxed">
+                <p className="text-base text-gray-300 leading-relaxed">
                   {client.description}
                 </p>
-                <Link
-                  to="/contact"
-                  className="inline-flex items-center text-[color:hsl(var(--primary))] hover:text-[color:hsl(var(--primary))]/80 transition-colors font-medium"
-                >
-                  En savoir plus
-                  <svg className="ml-2 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                  </svg>
-                </Link>
               </div>
             </motion.div>
           ))}
