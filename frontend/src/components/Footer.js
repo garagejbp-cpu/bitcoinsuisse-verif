@@ -86,14 +86,14 @@ const Footer = () => {
                     {link.href.startsWith('/') ? (
                       <Link
                         to={link.href}
-                        className="text-sm text-[color:hsl(var(--muted-foreground))] hover:text-[color:hsl(var(--primary))] transition-colors"
+                        className="text-sm text-gray-400 hover:text-[#E31B23] transition-colors"
                       >
                         {link.name}
                       </Link>
                     ) : (
                       <a
                         href={link.href}
-                        className="text-sm text-[color:hsl(var(--muted-foreground))] hover:text-[color:hsl(var(--primary))] transition-colors"
+                        className="text-sm text-gray-400 hover:text-[#E31B23] transition-colors"
                       >
                         {link.name}
                       </a>
