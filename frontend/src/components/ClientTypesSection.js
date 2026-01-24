@@ -4,34 +4,34 @@ import { motion } from 'framer-motion';
 const ClientTypesSection = () => {
   const clientTypes = [
     {
-      title: 'Un Particulier',
-      description: 'Profitez d\'une expérience crypto supérieure : une suite cohérente de produits de trading, staking, garde et prêt coordonnée par un gestionnaire de clientèle expert en crypto, accessible via un seul compte.',
+      title: 'Une PME ou ETI',
+      description: 'Accélérez votre croissance sans diluer votre capital. Nos financements en USDT ERC-20 vous permettent de financer vos projets d\'expansion, acquisitions ou besoins en fonds de roulement avec une flexibilité que les banques traditionnelles ne peuvent offrir. Apport de 20%, déblocage rapide, remboursement adapté à votre trésorerie.',
       image: 'https://www.bitcoinsuisse.com/_next/image?url=https%3A%2F%2Fassets.bitcoinsuisse.com%2Fschiscms%2Fassets%2Fhero_foreground_visual_012e0e559f.png&w=1440&q=100',
-      href: '#individuals'
+      href: '#pme'
     },
     {
-      title: 'Une Fondation ou Entreprise Crypto',
-      description: 'Gérez, développez et utilisez mieux vos actifs crypto avec une garde de qualité institutionnelle, un staking expert, une liquidité profonde et un support de conformité. Travaillez avec un partenaire ayant une expertise native approfondie.',
+      title: 'Une Société de Trading ou d\'Investissement',
+      description: 'Maximisez votre levier sans immobiliser vos positions. Obtenez des liquidités pour saisir les opportunités de marché tout en conservant l\'exposition à vos actifs. Financement structuré, conditions institutionnelles et exécution rapide pour les professionnels des marchés.',
       image: 'https://www.bitcoinsuisse.com/_next/image?url=https%3A%2F%2Fassets.bitcoinsuisse.com%2Fschiscms%2Fassets%2Ffoundation_foreground_visual_2x_fb4ac203ee.png&w=1440&q=100',
-      href: '#foundations'
+      href: '#trading'
     },
     {
-      title: 'Une Entreprise',
-      description: 'Diversifiez votre bilan avec une allocation stratégique aux actifs crypto. Bénéficiez de nos solutions de garde institutionnelles, d\'un accompagnement expert et d\'un cadre entièrement conforme.',
+      title: 'Un Family Office',
+      description: 'Diversifiez vos stratégies de financement avec un partenaire de confiance. Accédez à des solutions de prêt sur mesure, confidentielles et adaptées aux exigences des grandes fortunes. Accompagnement personnalisé, structuration juridique robuste et reporting détaillé.',
       image: 'https://www.bitcoinsuisse.com/_next/image?url=https%3A%2F%2Fassets.bitcoinsuisse.com%2Fschiscms%2Fassets%2Fcorporations_hero_foreground_visual_2x_40365e384e.png&w=1440&q=100',
-      href: '#corporations'
+      href: '#family-office'
     },
     {
-      title: 'Un Prestataire de Services Financiers',
-      description: 'La crypto gagne en adoption institutionnelle via la prolifération des ETF et ETP. Allez plus loin en permettant à vos clients d\'investir dans de vrais tokens. En tant que partenaire des EAM, family offices, banques et autres, nous vous offrons une expertise native inestimable.',
+      title: 'Un Promoteur ou Investisseur Immobilier',
+      description: 'Financez vos opérations immobilières avec la rapidité de la finance crypto. Bridge loan, financement d\'acquisition ou refinancement : nos solutions en USDT vous permettent de sécuriser vos deals dans des délais que le financement bancaire traditionnel ne peut égaler.',
       image: 'https://www.bitcoinsuisse.com/_next/image?url=https%3A%2F%2Fassets.bitcoinsuisse.com%2Fschiscms%2Fassets%2Fa_financial_service_provider_3x_6a4f1c8193.png&w=1440&q=100',
-      href: '#financial'
+      href: '#immobilier'
     },
     {
-      title: 'Un Fonds',
-      description: 'Optimisez vos performances, exécutez des transactions efficacement et gérez vos actifs crypto en toute sécurité à grande échelle. Que vous soyez un hedge fund, un capital-risque, un fonds de pension ou un fonds souverain, discutons de solutions sur mesure.',
+      title: 'Un Fonds d\'Investissement',
+      description: 'Capital-risque, private equity ou hedge fund : optimisez votre gestion de trésorerie et vos appels de fonds. Nos lignes de crédit institutionnelles vous offrent la flexibilité nécessaire pour déployer votre capital au bon moment, sans contraintes administratives excessives.',
       image: 'https://www.bitcoinsuisse.com/_next/image?url=https%3A%2F%2Fassets.bitcoinsuisse.com%2Fschiscms%2Fassets%2Fabout_us_hero_foreground_visual_2x_4f91b97683.png&w=1440&q=100',
-      href: '#funds'
+      href: '#fonds'
     }
   ];
 
