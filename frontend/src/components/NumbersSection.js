@@ -31,10 +31,10 @@ const NumbersSection = () => {
           transition={{ duration: 0.5 }}
           className="text-center mb-16"
         >
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl tracking-tight font-semibold text-[color:hsl(var(--foreground))]">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl tracking-tight font-semibold text-white">
             Les Chiffres Parlent d'Eux-Mêmes
           </h2>
-          <p className="mt-4 text-base text-[color:hsl(var(--muted-foreground))]">
+          <p className="mt-4 text-base text-gray-300">
             Les chiffres ci-dessous s'appliquent au groupe Bitcoin Suisse.
           </p>
         </motion.div>
