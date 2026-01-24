@@ -3,7 +3,7 @@ import { cn } from "../../lib/utils";
 
 function Badge({ className, variant = "default", ...props }) {
   const variants = {
-    default: "bg-emerald-600/10 text-emerald-500 border-emerald-600/20",
+    default: "bg-[#E31B23]/10 text-[#E31B23] border-[#E31B23]/20",
     secondary: "bg-[hsl(220,15%,20%)] text-[hsl(210,20%,96%)] border-[hsl(218,16%,22%)]",
     destructive: "bg-red-600/10 text-red-500 border-red-600/20",
     warning: "bg-amber-600/10 text-amber-500 border-amber-600/20"
