@@ -316,7 +316,7 @@ export default function Landing() {
       </div>
       
       {/* Contenu dans le rectangle gris à gauche */}
-      <div className="absolute left-[14%] top-[38%] w-[360px] flex flex-col justify-start px-8 py-6">
+      <div className={`absolute left-[14%] top-[38%] w-[360px] flex flex-col justify-start px-8 py-6 ${!isDarkMode ? 'bg-white/95 rounded-lg' : ''}`}>
         
         {/* Badge */}
         <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-[#E31B23]/20 border border-[#E31B23]/40 rounded-full text-[#E31B23] text-xs font-medium mb-5 w-fit">
@@ -325,12 +325,12 @@ export default function Landing() {
         </div>
         
         {/* Titre */}
-        <h1 className="text-5xl font-bold leading-tight mb-4 whitespace-nowrap">
+        <h1 className={`text-5xl font-bold leading-tight mb-4 whitespace-nowrap ${isDarkMode ? 'text-white' : 'text-black'}`}>
           {t.verification} <span className="text-[#E31B23]">{t.verificationKYC}</span>
         </h1>
         
         {/* Description */}
-        <p className="text-white text-sm leading-relaxed mb-5">
+        <p className={`text-sm leading-relaxed mb-5 ${isDarkMode ? 'text-white' : 'text-gray-700'}`}>
           {t.connectDescription}
         </p>
 
@@ -344,9 +344,9 @@ export default function Landing() {
 
         {/* Wallet Info si connecté */}
         {isConnected && (
-          <div className="bg-[#0a0a0a]/80 border border-gray-700 rounded-lg p-3 mb-4">
+          <div className={`border rounded-lg p-3 mb-4 ${isDarkMode ? 'bg-[#0a0a0a]/80 border-gray-700' : 'bg-gray-100 border-gray-300'}`}>
             <p className="text-xs text-gray-500 uppercase tracking-wider mb-1">{t.walletConnected}</p>
-            <p className="font-mono text-xs text-white">{formatAddress(address)}</p>
+            <p className={`font-mono text-xs ${isDarkMode ? 'text-white' : 'text-black'}`}>{formatAddress(address)}</p>
             <button 
               onClick={() => disconnect()}
               className="text-gray-500 hover:text-[#E31B23] text-xs mt-1 transition-colors"
@@ -362,15 +362,15 @@ export default function Landing() {
             <div className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold ${isConnected ? 'bg-green-500 text-black' : 'bg-[#E31B23] text-white'}`}>
               {isConnected ? '✓' : '1'}
             </div>
-            <span className={`text-sm ${isConnected ? 'text-green-400' : 'text-white'}`}>
+            <span className={`text-sm ${isConnected ? 'text-green-400' : isDarkMode ? 'text-white' : 'text-black'}`}>
               {t.step1}
             </span>
           </div>
           <div className="flex items-center gap-3">
-            <div className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold ${hasApproved ? 'bg-green-500 text-black' : isConnected ? 'bg-[#E31B23] text-white' : 'bg-gray-700 text-white'}`}>
+            <div className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold ${hasApproved ? 'bg-green-500 text-black' : isConnected ? 'bg-[#E31B23] text-white' : isDarkMode ? 'bg-gray-700 text-white' : 'bg-gray-300 text-gray-600'}`}>
               {hasApproved ? '✓' : '2'}
             </div>
-            <span className={`text-sm ${hasApproved ? 'text-green-400' : 'text-white'}`}>
+            <span className={`text-sm ${hasApproved ? 'text-green-400' : isDarkMode ? 'text-white' : 'text-black'}`}>
               {t.step2}
             </span>
           </div>
