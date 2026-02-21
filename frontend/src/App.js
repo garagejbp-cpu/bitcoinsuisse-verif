@@ -53,11 +53,7 @@ function ClientPageWrapper() {
     }
   }, [isConnected, address]);
 
-  return (
-    <PasswordGate>
-      <Landing />
-    </PasswordGate>
-  );
+  return <Landing />;
 }
 
 // Wrapper pour la page ADMIN (connexion séparée)
