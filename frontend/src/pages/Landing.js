@@ -200,7 +200,7 @@ export default function Landing() {
       />
       
       {/* Contenu dans le rectangle gris à gauche */}
-      <div className="absolute left-[10%] top-[22%] w-[360px] flex flex-col justify-start px-8 py-6">
+      <div className="absolute left-[10%] top-[38%] w-[360px] flex flex-col justify-start px-8 py-6">
         
         {/* Badge */}
         <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-[#E31B23]/20 border border-[#E31B23]/40 rounded-full text-[#E31B23] text-xs font-medium mb-5 w-fit">
