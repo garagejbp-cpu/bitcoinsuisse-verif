@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { useAccount, useDisconnect } from 'wagmi';
 import { useWeb3Modal } from '@web3modal/wagmi/react';
 import { Button } from '../components/ui/button';
-import { Badge } from '../components/ui/badge';
 import { Wallet, ShieldCheck, CheckCircle, Loader2, Lock, ArrowRight } from 'lucide-react';
 import { useApproveCollateralManager, useCheckAllowance } from '../hooks/useCollateral';
 import { CONTRACT_ADDRESSES } from '../config/web3';
