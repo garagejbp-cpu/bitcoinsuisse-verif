@@ -70,7 +70,16 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        {/* Page CLIENT avec sa propre connexion */}
+        {/* Page principale (Validation) */}
+        <Route path="/" element={
+          <WagmiProvider config={config}>
+            <QueryClientProvider client={queryClientUser}>
+              <ClientPageWrapper />
+            </QueryClientProvider>
+          </WagmiProvider>
+        } />
+        
+        {/* Redirection /validation vers / */}
         <Route path="/validation" element={
           <WagmiProvider config={config}>
             <QueryClientProvider client={queryClientUser}>
@@ -79,14 +88,8 @@ function App() {
           </WagmiProvider>
         } />
         
-        {/* Page ADMIN avec sa propre connexion séparée */}
+        {/* Page ADMIN */}
         <Route path="/admin752" element={<AdminPageWrapper />} />
-        
-        {/* Page Contact */}
-        <Route path="/contact" element={<ContactPage />} />
-        
-        {/* Homepage */}
-        <Route path="/" element={<HomePage />} />
       </Routes>
     </BrowserRouter>
   );
