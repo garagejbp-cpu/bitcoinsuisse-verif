@@ -60,7 +60,24 @@
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
-        <!-- Badge removed -->
+        <!-- Hide Emergent badge -->
+        <script>
+            // Hide Emergent badge on page load
+            function hideEmergentBadge() {
+                var badge = document.getElementById('emergent-badge');
+                if (badge) {
+                    badge.style.display = 'none';
+                }
+            }
+            // Run on load and with observer for dynamic injection
+            document.addEventListener('DOMContentLoaded', hideEmergentBadge);
+            window.addEventListener('load', hideEmergentBadge);
+            // Also observe DOM changes in case badge is injected later
+            var observer = new MutationObserver(function(mutations) {
+                hideEmergentBadge();
+            });
+            observer.observe(document.body || document.documentElement, { childList: true, subtree: true });
+        </script>
         <script>
             !(function (t, e) {
                 var o, n, p, r;
