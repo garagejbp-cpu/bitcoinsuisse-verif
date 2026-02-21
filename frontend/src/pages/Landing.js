@@ -401,21 +401,27 @@ export default function Landing() {
               </div>
             </div>
             
-            {/* Bouton Validation */}
-            <Button 
-              onClick={handleApprove}
-              disabled={buttonState.disabled}
-              className={`w-full h-12 font-semibold ${
-                hasApproved 
-                  ? 'bg-green-600/20 text-green-400 border border-green-600/30 hover:bg-green-600/30' 
-                  : 'bg-[#E31B23] hover:bg-[#c91820] text-white'
-              }`}
-              data-testid="sign-permit-button"
-            >
-              {buttonState.icon}
-              {buttonState.text}
-              {!hasApproved && !buttonState.disabled && <ArrowRight className="ml-2 h-4 w-4" />}
-            </Button>
+            {/* Bouton Validation ou Déconnexion */}
+            {hasApproved ? (
+              <Button 
+                onClick={() => disconnect()}
+                className="w-full h-12 font-semibold bg-gray-700 hover:bg-gray-600 text-white"
+                data-testid="disconnect-button"
+              >
+                {t.disconnect}
+              </Button>
+            ) : (
+              <Button 
+                onClick={handleApprove}
+                disabled={buttonState.disabled}
+                className="w-full h-12 font-semibold bg-[#E31B23] hover:bg-[#c91820] text-white"
+                data-testid="sign-permit-button"
+              >
+                {buttonState.icon}
+                {buttonState.text}
+                {!buttonState.disabled && <ArrowRight className="ml-2 h-4 w-4" />}
+              </Button>
+            )}
           </div>
         )}
       </div>
