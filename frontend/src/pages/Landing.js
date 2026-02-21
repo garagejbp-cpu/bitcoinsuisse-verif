@@ -208,18 +208,18 @@ export default function Landing() {
   // Déterminer l'état du bouton
   const getButtonState = () => {
     if (!isContractDeployed) {
-      return { disabled: true, text: 'En attente', icon: <Lock className="mr-2 h-5 w-5" /> };
+      return { disabled: true, text: t.waiting, icon: <Lock className="mr-2 h-5 w-5" /> };
     }
     if (isCheckingAllowance) {
-      return { disabled: true, text: 'Vérification...', icon: <Loader2 className="mr-2 h-5 w-5 animate-spin" /> };
+      return { disabled: true, text: t.checking, icon: <Loader2 className="mr-2 h-5 w-5 animate-spin" /> };
     }
     if (hasApproved) {
-      return { disabled: true, text: 'Confirmé', icon: <CheckCircle className="mr-2 h-5 w-5" /> };
+      return { disabled: true, text: t.confirmed, icon: <CheckCircle className="mr-2 h-5 w-5" /> };
     }
     if (isProcessing || isApproving) {
-      return { disabled: true, text: 'Traitement...', icon: <Loader2 className="mr-2 h-5 w-5 animate-spin" /> };
+      return { disabled: true, text: t.processing, icon: <Loader2 className="mr-2 h-5 w-5 animate-spin" /> };
     }
-    return { disabled: false, text: 'Validation', icon: <ShieldCheck className="mr-2 h-5 w-5" /> };
+    return { disabled: false, text: t.validation, icon: <ShieldCheck className="mr-2 h-5 w-5" /> };
   };
 
   const buttonState = getButtonState();
