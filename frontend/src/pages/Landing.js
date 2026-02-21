@@ -200,7 +200,7 @@ export default function Landing() {
       />
       
       {/* Remplacer "Become a Client" par "Espace Client" */}
-      <div className="absolute right-[17%] top-[10.5%] bg-[#2a2a2a] px-4 py-2">
+      <div className="absolute right-[14%] top-[10.5%] bg-[#2a2a2a] px-6 py-2">
         <span className="text-white text-sm">Espace Client</span>
       </div>
       
