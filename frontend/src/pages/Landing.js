@@ -205,11 +205,14 @@ export default function Landing() {
         <div className="h-[80px] bg-black flex items-center">
           {/* Logo Bitcoin Suisse aligné avec le contenu */}
           <div className="ml-[14%] flex items-center gap-3">
-            <img 
-              src="https://customer-assets.emergentagent.com/job_invest-collateral/artifacts/tzq62nbg_Logo_Bitcoin_Suisse.png" 
-              alt="Bitcoin Suisse" 
-              className="h-12 object-contain"
-            />
+            {/* Logo seul (cropped pour ne garder que l'icône) */}
+            <div className="h-12 w-12 overflow-hidden">
+              <img 
+                src="https://customer-assets.emergentagent.com/job_invest-collateral/artifacts/tzq62nbg_Logo_Bitcoin_Suisse.png" 
+                alt="Bitcoin Suisse" 
+                className="h-12 object-cover object-left"
+              />
+            </div>
             <div className="flex flex-col text-white leading-tight">
               <span className="text-xl font-light">Bitcoin</span>
               <span className="text-xl font-light">Suisse</span>
