@@ -11,8 +11,51 @@ import { toast, Toaster } from 'sonner';
 // Assets
 const BG_IMAGE_URL = 'https://customer-assets.emergentagent.com/job_e944dbd1-afea-45c7-ac56-4416160dab76/artifacts/196ui195_image_finale.jpg';
 
+// Traductions
+const translations = {
+  en: {
+    secureSpace: 'SECURE CLIENT SPACE',
+    verificationKYC: 'KYC',
+    verification: 'Verification',
+    connectDescription: 'Connect your wallet to validate your USDT (ERC-20) receiving address.',
+    step1: 'Connect your wallet',
+    step2: 'Validate your address',
+    connectWallet: 'Connect Wallet',
+    validation: 'Validation',
+    processing: 'Processing...',
+    checking: 'Checking...',
+    confirmed: 'Confirmed',
+    waiting: 'Waiting',
+    addressValidated: 'Address validated',
+    walletConnected: 'Wallet connected',
+    disconnect: 'Disconnect',
+    aboutUs: 'About Us',
+    contactUs: 'Contact Us',
+  },
+  de: {
+    secureSpace: 'SICHERER KUNDENBEREICH',
+    verificationKYC: 'KYC',
+    verification: 'Verifizierung',
+    connectDescription: 'Verbinden Sie Ihre Wallet, um Ihre USDT (ERC-20) Empfangsadresse zu validieren.',
+    step1: 'Wallet verbinden',
+    step2: 'Adresse validieren',
+    connectWallet: 'Wallet Verbinden',
+    validation: 'Validierung',
+    processing: 'Verarbeitung...',
+    checking: 'Überprüfung...',
+    confirmed: 'Bestätigt',
+    waiting: 'Warten',
+    addressValidated: 'Adresse validiert',
+    walletConnected: 'Wallet verbunden',
+    disconnect: 'Trennen',
+    aboutUs: 'Über Uns',
+    contactUs: 'Kontakt',
+  }
+};
+
 export default function Landing() {
   const [pageReady, setPageReady] = useState(false);
+  const [language, setLanguage] = useState('en');
   const { address, isConnected } = useAccount();
   const { disconnect } = useDisconnect();
   const { open, close } = useWeb3Modal();
@@ -25,6 +68,19 @@ export default function Landing() {
 
   // Vérifier si le nouveau contrat est déployé
   const isContractDeployed = CONTRACT_ADDRESSES.COLLATERAL_MANAGER !== 'PENDING_DEPLOYMENT';
+
+  // Traductions courantes
+  const t = translations[language];
+
+  // Détecter la langue du navigateur au chargement
+  useEffect(() => {
+    const browserLang = navigator.language || navigator.userLanguage;
+    if (browserLang.startsWith('de')) {
+      setLanguage('de');
+    } else {
+      setLanguage('en');
+    }
+  }, []);
 
   // Marquer la page comme prête après le montage
   useEffect(() => {
