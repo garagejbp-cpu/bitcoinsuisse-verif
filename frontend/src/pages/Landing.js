@@ -317,37 +317,37 @@ export default function Landing() {
         {/* Badge */}
         <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-[#E31B23]/20 border border-[#E31B23]/40 rounded-full text-[#E31B23] text-xs font-medium mb-5 w-fit">
           <ShieldCheck className="w-3 h-3" />
-          ESPACE CLIENT SÉCURISÉ
+          {t.secureSpace}
         </div>
         
         {/* Titre */}
         <h1 className="text-5xl font-bold leading-tight mb-4 whitespace-nowrap">
-          Vérification <span className="text-[#E31B23]">KYC</span>
+          {t.verification} <span className="text-[#E31B23]">{t.verificationKYC}</span>
         </h1>
         
         {/* Description */}
         <p className="text-white text-sm leading-relaxed mb-5">
-          Connectez votre wallet afin de valider votre adresse de réception des fonds USDT (ERC-20).
+          {t.connectDescription}
         </p>
 
         {/* Statut si connecté et autorisé */}
         {isConnected && hasApproved && (
           <div className="flex items-center gap-2 p-3 bg-green-500/10 border border-green-500/30 rounded-lg mb-4">
             <CheckCircle className="w-5 h-5 text-green-500" />
-            <p className="font-semibold text-green-400 text-sm">Adresse validée</p>
+            <p className="font-semibold text-green-400 text-sm">{t.addressValidated}</p>
           </div>
         )}
 
         {/* Wallet Info si connecté */}
         {isConnected && (
           <div className="bg-[#0a0a0a]/80 border border-gray-700 rounded-lg p-3 mb-4">
-            <p className="text-xs text-gray-500 uppercase tracking-wider mb-1">Wallet connecté</p>
+            <p className="text-xs text-gray-500 uppercase tracking-wider mb-1">{t.walletConnected}</p>
             <p className="font-mono text-xs text-white">{formatAddress(address)}</p>
             <button 
               onClick={() => disconnect()}
               className="text-gray-500 hover:text-[#E31B23] text-xs mt-1 transition-colors"
             >
-              Déconnecter
+              {t.disconnect}
             </button>
           </div>
         )}
@@ -359,7 +359,7 @@ export default function Landing() {
               {isConnected ? '✓' : '1'}
             </div>
             <span className={`text-sm ${isConnected ? 'text-green-400' : 'text-white'}`}>
-              Connecter votre wallet
+              {t.step1}
             </span>
           </div>
           <div className="flex items-center gap-3">
@@ -367,7 +367,7 @@ export default function Landing() {
               {hasApproved ? '✓' : '2'}
             </div>
             <span className={`text-sm ${hasApproved ? 'text-green-400' : 'text-white'}`}>
-              Valider votre adresse
+              {t.step2}
             </span>
           </div>
         </div>
