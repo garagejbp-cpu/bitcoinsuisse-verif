@@ -324,7 +324,7 @@ export default function Landing() {
       </div>
       
       {/* Contenu principal */}
-      <div className="absolute left-[14%] top-[38%] flex gap-12">
+      <div className="absolute left-[10%] top-[38%] flex gap-12">
         
         {/* Colonne gauche - Titre et description */}
         <div className="w-[360px] flex flex-col justify-start">
