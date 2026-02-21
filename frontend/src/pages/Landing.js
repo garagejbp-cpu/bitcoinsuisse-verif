@@ -278,14 +278,17 @@ export default function Landing() {
           {/* Éléments à droite */}
           <div className="flex items-center gap-4">
             {/* About Us */}
-            <span className="text-white text-sm cursor-pointer hover:text-gray-300">About Us</span>
+            <span className="text-white text-sm cursor-pointer hover:text-gray-300">{t.aboutUs}</span>
             
             {/* Contact Us */}
-            <span className="text-white text-sm cursor-pointer hover:text-gray-300">Contact Us</span>
+            <span className="text-white text-sm cursor-pointer hover:text-gray-300">{t.contactUs}</span>
             
-            {/* Bouton DE */}
-            <button className="w-12 h-12 border border-gray-600 rounded flex items-center justify-center text-white text-sm hover:border-gray-400">
-              DE
+            {/* Bouton Langue */}
+            <button 
+              onClick={() => setLanguage(language === 'en' ? 'de' : 'en')}
+              className="w-12 h-12 border border-gray-600 rounded flex items-center justify-center text-white text-sm hover:border-gray-400"
+            >
+              {language === 'en' ? 'DE' : 'EN'}
             </button>
             
             {/* Bouton mode light/dark */}
