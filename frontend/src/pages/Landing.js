@@ -210,6 +210,10 @@ export default function Landing() {
               alt="Bitcoin Suisse" 
               className="h-12 object-contain"
             />
+            <div className="flex flex-col text-white leading-tight">
+              <span className="text-xl font-light">Bitcoin</span>
+              <span className="text-xl font-light">Suisse</span>
+            </div>
           </div>
         </div>
         {/* Partie grise en bas */}
