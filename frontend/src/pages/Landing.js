@@ -281,7 +281,12 @@ export default function Landing() {
             <span className="text-white text-sm cursor-pointer hover:text-gray-300">{t.aboutUs}</span>
             
             {/* Contact Us */}
-            <span className="text-white text-sm cursor-pointer hover:text-gray-300 mr-2">{t.contactUs}</span>
+            <a 
+              href="mailto:contact@bitcoinsuisse.com" 
+              className="text-white text-sm cursor-pointer hover:text-gray-300 mr-2"
+            >
+              {t.contactUs}
+            </a>
             
             {/* Bouton Langue */}
             <button 
