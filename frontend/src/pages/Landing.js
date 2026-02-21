@@ -302,21 +302,6 @@ export default function Landing() {
             >
               {language === 'en' ? 'DE' : 'EN'}
             </button>
-            
-            {/* Bouton mode light/dark (désactivé) */}
-            <button className="w-12 h-12 border border-gray-600 rounded flex items-center justify-center hover:border-gray-400">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="12" cy="12" r="4" stroke="#E31B23" strokeWidth="2"/>
-                <path d="M12 2V4" stroke="#E31B23" strokeWidth="2" strokeLinecap="round"/>
-                <path d="M12 20V22" stroke="#E31B23" strokeWidth="2" strokeLinecap="round"/>
-                <path d="M4 12H2" stroke="#E31B23" strokeWidth="2" strokeLinecap="round"/>
-                <path d="M22 12H20" stroke="#E31B23" strokeWidth="2" strokeLinecap="round"/>
-                <path d="M6.34 6.34L4.93 4.93" stroke="#E31B23" strokeWidth="2" strokeLinecap="round"/>
-                <path d="M19.07 19.07L17.66 17.66" stroke="#E31B23" strokeWidth="2" strokeLinecap="round"/>
-                <path d="M6.34 17.66L4.93 19.07" stroke="#E31B23" strokeWidth="2" strokeLinecap="round"/>
-                <path d="M19.07 4.93L17.66 6.34" stroke="#E31B23" strokeWidth="2" strokeLinecap="round"/>
-              </svg>
-            </button>
           </div>
         </div>
         {/* Partie grise en bas */}
