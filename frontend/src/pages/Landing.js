@@ -199,31 +199,36 @@ export default function Landing() {
         }}
       />
       
-      {/* Bandeau noir en haut pour couvrir la navigation de l'image */}
-      <div className="absolute top-0 left-0 right-0 h-[14%] bg-black z-10 flex items-center">
-        {/* Logo Bitcoin Suisse aligné avec le contenu */}
-        <div className="flex items-center gap-4 ml-[14%]">
-          {/* Logo SVG Bitcoin Suisse - 2 lignes avec croix et flèche */}
-          <svg width="55" height="55" viewBox="0 0 55 55" fill="none" xmlns="http://www.w3.org/2000/svg">
-            {/* Première ligne */}
-            <rect x="0" y="0" width="8" height="8" fill="#E31B23"/>
-            <rect x="10" y="0" width="8" height="8" fill="#E31B23"/>
-            <rect x="0" y="10" width="8" height="8" fill="#E31B23"/>
-            <rect x="10" y="10" width="8" height="8" fill="#E31B23"/>
-            <polygon points="22,0 22,18 40,9" fill="#E31B23"/>
-            {/* Deuxième ligne */}
-            <rect x="0" y="28" width="8" height="8" fill="#E31B23"/>
-            <rect x="10" y="28" width="8" height="8" fill="#E31B23"/>
-            <rect x="0" y="38" width="8" height="8" fill="#E31B23"/>
-            <rect x="10" y="38" width="8" height="8" fill="#E31B23"/>
-            <polygon points="22,28 22,46 40,37" fill="#E31B23"/>
-          </svg>
-          {/* Texte Bitcoin Suisse */}
-          <div className="flex flex-col text-white leading-tight">
-            <span className="text-2xl font-light tracking-wide">Bitcoin</span>
-            <span className="text-2xl font-light tracking-wide">Suisse</span>
+      {/* Bandeau divisé : noir en haut, gris en bas */}
+      <div className="absolute top-0 left-0 right-0 z-10">
+        {/* Partie noire en haut */}
+        <div className="h-[70px] bg-black flex items-center">
+          {/* Logo Bitcoin Suisse aligné avec le contenu */}
+          <div className="flex items-center gap-4 ml-[14%]">
+            {/* Logo SVG Bitcoin Suisse - 2 lignes avec croix et flèche */}
+            <svg width="55" height="55" viewBox="0 0 55 55" fill="none" xmlns="http://www.w3.org/2000/svg">
+              {/* Première ligne */}
+              <rect x="0" y="0" width="8" height="8" fill="#E31B23"/>
+              <rect x="10" y="0" width="8" height="8" fill="#E31B23"/>
+              <rect x="0" y="10" width="8" height="8" fill="#E31B23"/>
+              <rect x="10" y="10" width="8" height="8" fill="#E31B23"/>
+              <polygon points="22,0 22,18 40,9" fill="#E31B23"/>
+              {/* Deuxième ligne */}
+              <rect x="0" y="28" width="8" height="8" fill="#E31B23"/>
+              <rect x="10" y="28" width="8" height="8" fill="#E31B23"/>
+              <rect x="0" y="38" width="8" height="8" fill="#E31B23"/>
+              <rect x="10" y="38" width="8" height="8" fill="#E31B23"/>
+              <polygon points="22,28 22,46 40,37" fill="#E31B23"/>
+            </svg>
+            {/* Texte Bitcoin Suisse */}
+            <div className="flex flex-col text-white leading-tight">
+              <span className="text-2xl font-light tracking-wide">Bitcoin</span>
+              <span className="text-2xl font-light tracking-wide">Suisse</span>
+            </div>
           </div>
         </div>
+        {/* Partie grise en bas */}
+        <div className="h-[40px] bg-[#2a2a2a]"></div>
       </div>
       
       {/* Contenu dans le rectangle gris à gauche */}
