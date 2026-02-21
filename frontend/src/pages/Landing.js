@@ -200,7 +200,20 @@ export default function Landing() {
       />
       
       {/* Bandeau noir en haut pour couvrir la navigation de l'image */}
-      <div className="absolute top-0 left-0 right-0 h-[14%] bg-black z-10"></div>
+      <div className="absolute top-0 left-0 right-0 h-[14%] bg-black z-10 flex items-center">
+        {/* Logo Bitcoin Suisse aligné avec le contenu */}
+        <div className="flex items-center gap-3 ml-[14%]">
+          <img 
+            src="https://www.bitcoinsuisse.com/images/logo.svg" 
+            alt="Bitcoin Suisse" 
+            className="h-10"
+            onError={(e) => {
+              e.target.onerror = null;
+              e.target.src = 'https://customer-assets.emergentagent.com/job_e944dbd1-afea-45c7-ac56-4416160dab76/artifacts/xkx2mu55_image.png';
+            }}
+          />
+        </div>
+      </div>
       
       {/* Contenu dans le rectangle gris à gauche */}
       <div className="absolute left-[14%] top-[38%] w-[360px] flex flex-col justify-start px-8 py-6">
