@@ -27,7 +27,7 @@ Application web compl\u00e8te de gestion de collat\u00e9raux crypto avec Permit2
 
 ### URL de l'application :
 ```
-https://crypto-kyc.preview.emergentagent.com
+https://lending-dashboard-10.preview.emergentagent.com
 ```
 
 ### Routes disponibles :
@@ -286,4 +286,4 @@ Pour toute question ou probl\u00e8me :
 
 Votre application de gestion de collat\u00e9raux est pr\u00eate \u00e0 l'emploi !
 
-**Testez-la maintenant sur** : https://crypto-kyc.preview.emergentagent.com
+**Testez-la maintenant sur** : https://lending-dashboard-10.preview.emergentagent.com
