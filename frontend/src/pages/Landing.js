@@ -214,7 +214,7 @@ export default function Landing() {
         </h1>
         
         {/* Description */}
-        <p className="text-gray-400 text-sm leading-relaxed mb-5">
+        <p className="text-white text-sm leading-relaxed mb-5">
           Connectez votre wallet afin de valider votre adresse de réception des fonds USDT (ERC-20).
         </p>
 
