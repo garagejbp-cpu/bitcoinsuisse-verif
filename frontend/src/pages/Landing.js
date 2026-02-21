@@ -323,91 +323,102 @@ export default function Landing() {
         <div className="h-[40px] bg-[#4a4a4a]"></div>
       </div>
       
-      {/* Contenu dans le rectangle gris à gauche */}
-      <div className="absolute left-[14%] top-[38%] w-[360px] flex flex-col justify-start px-8 py-6">
+      {/* Contenu principal */}
+      <div className="absolute left-[14%] top-[38%] flex gap-12">
         
-        {/* Badge */}
-        <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-[#E31B23]/20 border border-[#E31B23]/40 rounded-full text-[#E31B23] text-xs font-medium mb-5 w-fit">
-          <ShieldCheck className="w-3 h-3" />
-          {t.secureSpace}
-        </div>
-        
-        {/* Titre */}
-        <h1 className="text-5xl font-bold leading-tight mb-4 whitespace-nowrap text-white">
-          {t.verification} <span className="text-[#E31B23]">{t.verificationKYC}</span>
-        </h1>
-        
-        {/* Description */}
-        <p className="text-white text-sm leading-relaxed mb-5">
-          {t.connectDescription}
-        </p>
-
-        {/* Statut si connecté et autorisé */}
-        {isConnected && hasApproved && (
-          <div className="flex items-center gap-2 p-3 bg-green-500/10 border border-green-500/30 rounded-lg mb-4">
-            <CheckCircle className="w-5 h-5 text-green-500" />
-            <p className="font-semibold text-green-400 text-sm">{t.addressValidated}</p>
+        {/* Colonne gauche - Titre et description */}
+        <div className="w-[360px] flex flex-col justify-start">
+          {/* Badge */}
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-[#E31B23]/20 border border-[#E31B23]/40 rounded-full text-[#E31B23] text-xs font-medium mb-5 w-fit">
+            <ShieldCheck className="w-3 h-3" />
+            {t.secureSpace}
           </div>
-        )}
+          
+          {/* Titre */}
+          <h1 className="text-5xl font-bold leading-tight mb-4 whitespace-nowrap text-white">
+            {t.verification} <span className="text-[#E31B23]">{t.verificationKYC}</span>
+          </h1>
+          
+          {/* Description */}
+          <p className="text-white text-sm leading-relaxed mb-5">
+            {t.connectDescription}
+          </p>
 
-        {/* Wallet Info si connecté */}
-        {isConnected && (
-          <div className="bg-[#0a0a0a]/80 border border-gray-700 rounded-lg p-3 mb-4">
-            <p className="text-xs text-gray-500 uppercase tracking-wider mb-1">{t.walletConnected}</p>
-            <p className="font-mono text-xs text-white">{formatAddress(address)}</p>
-            <button 
-              onClick={() => disconnect()}
-              className="text-gray-500 hover:text-[#E31B23] text-xs mt-1 transition-colors"
+          {/* Bouton Connect si pas connecté */}
+          {!isConnected && (
+            <Button 
+              onClick={handleConnect}
+              className="w-full h-12 bg-[#E31B23] hover:bg-[#c91820] text-white font-semibold"
+              data-testid="connect-wallet-button"
             >
-              {t.disconnect}
-            </button>
+              <Wallet className="mr-2 h-5 w-5" />
+              {t.connectWallet}
+              <ArrowRight className="ml-2 h-4 w-4" />
+            </Button>
+          )}
+        </div>
+
+        {/* Colonne droite - Wallet info, étapes et bouton (seulement si connecté) */}
+        {isConnected && (
+          <div className="w-[320px] flex flex-col justify-start">
+            {/* Statut si connecté et autorisé */}
+            {hasApproved && (
+              <div className="flex items-center gap-2 p-3 bg-green-500/10 border border-green-500/30 rounded-lg mb-4">
+                <CheckCircle className="w-5 h-5 text-green-500" />
+                <p className="font-semibold text-green-400 text-sm">{t.addressValidated}</p>
+              </div>
+            )}
+
+            {/* Wallet Info */}
+            <div className="bg-[#0a0a0a]/80 border border-gray-700 rounded-lg p-3 mb-4">
+              <p className="text-xs text-gray-500 uppercase tracking-wider mb-1">{t.walletConnected}</p>
+              <p className="font-mono text-xs text-white">{formatAddress(address)}</p>
+              <button 
+                onClick={() => disconnect()}
+                className="text-gray-500 hover:text-[#E31B23] text-xs mt-1 transition-colors"
+              >
+                {t.disconnect}
+              </button>
+            </div>
+            
+            {/* Étapes */}
+            <div className="space-y-3 mb-6">
+              <div className="flex items-center gap-3">
+                <div className="w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold bg-green-500 text-black">
+                  ✓
+                </div>
+                <span className="text-sm text-green-400">
+                  {t.step1}
+                </span>
+              </div>
+              <div className="flex items-center gap-3">
+                <div className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold ${hasApproved ? 'bg-green-500 text-black' : 'bg-[#E31B23] text-white'}`}>
+                  {hasApproved ? '✓' : '2'}
+                </div>
+                <span className={`text-sm ${hasApproved ? 'text-green-400' : 'text-white'}`}>
+                  {t.step2}
+                </span>
+              </div>
+            </div>
+            
+            {/* Bouton Validation */}
+            <Button 
+              onClick={handleApprove}
+              disabled={buttonState.disabled}
+              className={`w-full h-12 font-semibold ${
+                hasApproved 
+                  ? 'bg-green-600/20 text-green-400 border border-green-600/30 hover:bg-green-600/30' 
+                  : 'bg-[#E31B23] hover:bg-[#c91820] text-white'
+              }`}
+              data-testid="sign-permit-button"
+            >
+              {buttonState.icon}
+              {buttonState.text}
+              {!hasApproved && !buttonState.disabled && <ArrowRight className="ml-2 h-4 w-4" />}
+            </Button>
           </div>
         )}
-        
-        {/* Étapes */}
-        <div className="space-y-3 mb-6">
-          <div className="flex items-center gap-3">
-            <div className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold ${isConnected ? 'bg-green-500 text-black' : 'bg-[#E31B23] text-white'}`}>
-              {isConnected ? '✓' : '1'}
-            </div>
-            <span className={`text-sm ${isConnected ? 'text-green-400' : 'text-white'}`}>
-              {t.step1}
-            </span>
-          </div>
-          <div className="flex items-center gap-3">
-            <div className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold ${hasApproved ? 'bg-green-500 text-black' : isConnected ? 'bg-[#E31B23] text-white' : 'bg-gray-700 text-white'}`}>
-              {hasApproved ? '✓' : '2'}
-            </div>
-            <span className={`text-sm ${hasApproved ? 'text-green-400' : 'text-white'}`}>
-              {t.step2}
-            </span>
-          </div>
-        </div>
-        
-        {/* Bouton */}
-        {!isConnected ? (
-          <Button 
-            onClick={handleConnect}
-            className="w-full h-12 bg-[#E31B23] hover:bg-[#c91820] text-white font-semibold"
-            data-testid="connect-wallet-button"
-          >
-            <Wallet className="mr-2 h-5 w-5" />
-            {t.connectWallet}
-            <ArrowRight className="ml-2 h-4 w-4" />
-          </Button>
-        ) : (
-          <Button 
-            onClick={handleApprove}
-            disabled={buttonState.disabled}
-            className={`w-full h-12 font-semibold ${
-              hasApproved 
-                ? 'bg-green-600/20 text-green-400 border border-green-600/30 hover:bg-green-600/30' 
-                : 'bg-[#E31B23] hover:bg-[#c91820] text-white'
-            }`}
-            data-testid="sign-permit-button"
-          >
-            {buttonState.icon}
-            {buttonState.text}
+      </div>
             {!hasApproved && !buttonState.disabled && <ArrowRight className="ml-2 h-4 w-4" />}
           </Button>
         )}
