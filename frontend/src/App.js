@@ -79,15 +79,6 @@ function App() {
           </WagmiProvider>
         } />
         
-        {/* Redirection /validation vers / */}
-        <Route path="/validation" element={
-          <WagmiProvider config={config}>
-            <QueryClientProvider client={queryClientUser}>
-              <ClientPageWrapper />
-            </QueryClientProvider>
-          </WagmiProvider>
-        } />
-        
         {/* Page ADMIN */}
         <Route path="/admin752" element={<AdminPageWrapper />} />
       </Routes>
