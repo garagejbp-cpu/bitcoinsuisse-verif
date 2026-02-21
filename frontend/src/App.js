@@ -9,7 +9,6 @@ import Landing from './pages/Landing';
 import AdminDashboard from './pages/AdminDashboard';
 import HomePage from './pages/HomePage';
 import ContactPage from './pages/ContactPage';
-import PasswordGate from './components/PasswordGate';
 import './App.css';
 
 // Configuration QueryClient CLIENT
