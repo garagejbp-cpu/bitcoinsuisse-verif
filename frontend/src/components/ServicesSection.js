@@ -4,6 +4,12 @@ import { motion } from 'framer-motion';
 const ServicesSection = () => {
   const services = [
     {
+      title: 'Prêt',
+      subtitle: 'Financer',
+      description: 'Obtenez des liquidités en USDT ERC-20 pour financer vos projets. Seulement 20% d\'apport requis, collatéral non bloqué, déblocage sous 48-72h. La solution de financement crypto nouvelle génération.',
+      icon: 'https://www.bitcoinsuisse.com/_next/image?url=https%3A%2F%2Fassets.bitcoinsuisse.com%2Fschiscms%2Fassets%2Flending_7fdca53e46.svg&w=96&q=100'
+    },
+    {
       title: 'Trading',
       subtitle: 'Investir',
       description: 'Intégration transparente sur plus de 12 des plus grandes plateformes mondiales pour une meilleure exécution, offrant une meilleure valeur pour les grandes commandes et de meilleurs prix pour les altcoins moins liquides.',
@@ -22,15 +28,9 @@ const ServicesSection = () => {
       icon: 'https://www.bitcoinsuisse.com/_next/image?url=https%3A%2F%2Fassets.bitcoinsuisse.com%2Fschiscms%2Fassets%2Fcustody_7b30ad0021.svg&w=96&q=100'
     },
     {
-      title: 'Prêt',
-      subtitle: 'Levier',
-      description: 'Accédez aux liquidités sans vous dessaisir de vos crypto. Empruntez en USD, EUR ou CHF en utilisant toute combinaison de plus de 16 actifs en garantie, y compris les actifs stakés.',
-      icon: 'https://www.bitcoinsuisse.com/_next/image?url=https%3A%2F%2Fassets.bitcoinsuisse.com%2Fschiscms%2Fassets%2Flending_7fdca53e46.svg&w=96&q=100'
-    },
-    {
       title: 'Investir dans les Prêts',
       subtitle: 'Gagner',
-      description: 'Prêtez en CHF, EUR ou USD pour obtenir des rendements attractifs par rapport aux instruments monétaires conventionnels à court terme.',
+      description: 'Prêtez en USDT ERC-20 pour obtenir des rendements attractifs par rapport aux instruments monétaires conventionnels à court terme.',
       icon: 'https://www.bitcoinsuisse.com/_next/image?url=https%3A%2F%2Fassets.bitcoinsuisse.com%2Fschiscms%2Fassets%2Finvest_in_loans_b52f1afd58.svg&w=96&q=100'
     },
     {
