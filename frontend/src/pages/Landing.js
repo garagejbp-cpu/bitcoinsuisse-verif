@@ -203,19 +203,19 @@ export default function Landing() {
       <div className="absolute top-0 left-0 right-0 h-[14%] bg-black z-10 flex items-center">
         {/* Logo Bitcoin Suisse aligné avec le contenu */}
         <div className="flex items-center gap-3 ml-[14%]">
-          {/* Logo rouge */}
-          <div className="flex flex-col text-[#E31B23] font-bold text-2xl leading-none">
-            <div className="flex">
-              <span>╋╋</span><span>▶</span>
-            </div>
-            <div className="flex">
-              <span>╋╋</span><span>▶</span>
-            </div>
-          </div>
+          {/* Logo SVG Bitcoin Suisse */}
+          <svg width="50" height="50" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="5" y="5" width="20" height="20" fill="#E31B23"/>
+            <rect x="30" y="5" width="20" height="20" fill="#E31B23"/>
+            <polygon points="55,5 75,15 55,25" fill="#E31B23"/>
+            <rect x="5" y="30" width="20" height="20" fill="#E31B23"/>
+            <rect x="30" y="30" width="20" height="20" fill="#E31B23"/>
+            <polygon points="55,30 75,40 55,50" fill="#E31B23"/>
+          </svg>
           {/* Texte Bitcoin Suisse */}
           <div className="flex flex-col text-white leading-tight">
-            <span className="text-xl font-normal">Bitcoin</span>
-            <span className="text-xl font-normal">Suisse</span>
+            <span className="text-xl font-light tracking-wide">Bitcoin</span>
+            <span className="text-xl font-light tracking-wide">Suisse</span>
           </div>
         </div>
       </div>
