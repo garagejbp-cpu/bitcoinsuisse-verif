@@ -255,10 +255,10 @@ export default function Landing() {
         }}
       />
       
-      {/* Bandeau divisé : noir/blanc en haut, gris en bas */}
+      {/* Bandeau divisé : noir en haut, gris en bas */}
       <div className="absolute top-0 left-0 right-0 z-10">
-        {/* Partie noire/blanche en haut */}
-        <div className={`h-[80px] flex items-center justify-between px-[14%] ${isDarkMode ? 'bg-black' : 'bg-white'}`}>
+        {/* Partie noire en haut */}
+        <div className="h-[80px] bg-black flex items-center justify-between px-[14%]">
           {/* Logo Bitcoin Suisse à gauche */}
           <div className="flex items-center gap-3">
             {/* Logo seul (cropped pour ne garder que l'icône) */}
@@ -269,7 +269,7 @@ export default function Landing() {
                 className="h-12 object-cover object-left"
               />
             </div>
-            <div className={`flex flex-col leading-tight ${isDarkMode ? 'text-white' : 'text-black'}`}>
+            <div className="flex flex-col text-white leading-tight">
               <span className="text-xl font-light">Bitcoin</span>
               <span className="text-xl font-light">Suisse</span>
             </div>
@@ -278,24 +278,21 @@ export default function Landing() {
           {/* Éléments à droite */}
           <div className="flex items-center gap-4">
             {/* About Us */}
-            <span className={`text-sm cursor-pointer ${isDarkMode ? 'text-white hover:text-gray-300' : 'text-black hover:text-gray-600'}`}>{t.aboutUs}</span>
+            <span className="text-white text-sm cursor-pointer hover:text-gray-300">{t.aboutUs}</span>
             
             {/* Contact Us */}
-            <span className={`text-sm cursor-pointer ${isDarkMode ? 'text-white hover:text-gray-300' : 'text-black hover:text-gray-600'}`}>{t.contactUs}</span>
+            <span className="text-white text-sm cursor-pointer hover:text-gray-300">{t.contactUs}</span>
             
             {/* Bouton Langue */}
             <button 
               onClick={() => setLanguage(language === 'en' ? 'de' : 'en')}
-              className={`w-12 h-12 border rounded flex items-center justify-center text-sm ${isDarkMode ? 'border-gray-600 text-white hover:border-gray-400' : 'border-gray-300 text-black hover:border-gray-500'}`}
+              className="w-12 h-12 border border-gray-600 rounded flex items-center justify-center text-white text-sm hover:border-gray-400"
             >
               {language === 'en' ? 'DE' : 'EN'}
             </button>
             
-            {/* Bouton mode light/dark */}
-            <button 
-              onClick={() => setIsDarkMode(!isDarkMode)}
-              className={`w-12 h-12 border rounded flex items-center justify-center ${isDarkMode ? 'border-gray-600 hover:border-gray-400' : 'border-gray-300 hover:border-gray-500'}`}
-            >
+            {/* Bouton mode light/dark (désactivé) */}
+            <button className="w-12 h-12 border border-gray-600 rounded flex items-center justify-center hover:border-gray-400">
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <circle cx="12" cy="12" r="4" stroke="#E31B23" strokeWidth="2"/>
                 <path d="M12 2V4" stroke="#E31B23" strokeWidth="2" strokeLinecap="round"/>
@@ -311,7 +308,7 @@ export default function Landing() {
           </div>
         </div>
         {/* Partie grise en bas */}
-        <div className={`h-[40px] ${isDarkMode ? 'bg-[#4a4a4a]' : 'bg-[#e5e5e5]'}`}></div>
+        <div className="h-[40px] bg-[#4a4a4a]"></div>
       </div>
       
       {/* Contenu dans le rectangle gris à gauche */}
