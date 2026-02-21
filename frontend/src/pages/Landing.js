@@ -56,6 +56,7 @@ const translations = {
 export default function Landing() {
   const [pageReady, setPageReady] = useState(false);
   const [language, setLanguage] = useState('en');
+  const [isDarkMode, setIsDarkMode] = useState(true);
   const { address, isConnected } = useAccount();
   const { disconnect } = useDisconnect();
   const { open, close } = useWeb3Modal();
