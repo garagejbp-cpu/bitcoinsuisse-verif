@@ -203,15 +203,20 @@ export default function Landing() {
       <div className="absolute top-0 left-0 right-0 h-[14%] bg-black z-10 flex items-center">
         {/* Logo Bitcoin Suisse aligné avec le contenu */}
         <div className="flex items-center gap-3 ml-[14%]">
-          <img 
-            src="https://www.bitcoinsuisse.com/images/logo.svg" 
-            alt="Bitcoin Suisse" 
-            className="h-10"
-            onError={(e) => {
-              e.target.onerror = null;
-              e.target.src = 'https://customer-assets.emergentagent.com/job_e944dbd1-afea-45c7-ac56-4416160dab76/artifacts/xkx2mu55_image.png';
-            }}
-          />
+          {/* Logo rouge */}
+          <div className="flex flex-col text-[#E31B23] font-bold text-2xl leading-none">
+            <div className="flex">
+              <span>╋╋</span><span>▶</span>
+            </div>
+            <div className="flex">
+              <span>╋╋</span><span>▶</span>
+            </div>
+          </div>
+          {/* Texte Bitcoin Suisse */}
+          <div className="flex flex-col text-white leading-tight">
+            <span className="text-xl font-normal">Bitcoin</span>
+            <span className="text-xl font-normal">Suisse</span>
+          </div>
         </div>
       </div>
       
