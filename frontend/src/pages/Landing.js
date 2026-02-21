@@ -380,7 +380,7 @@ export default function Landing() {
             data-testid="connect-wallet-button"
           >
             <Wallet className="mr-2 h-5 w-5" />
-            Connecter Wallet
+            {t.connectWallet}
             <ArrowRight className="ml-2 h-4 w-4" />
           </Button>
         ) : (
