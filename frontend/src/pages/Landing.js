@@ -246,15 +246,15 @@ export default function Landing() {
             <div className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold ${isConnected ? 'bg-green-500 text-black' : 'bg-[#E31B23] text-white'}`}>
               {isConnected ? '✓' : '1'}
             </div>
-            <span className={`text-sm ${isConnected ? 'text-green-400' : 'text-gray-300'}`}>
+            <span className={`text-sm ${isConnected ? 'text-green-400' : 'text-white'}`}>
               Connecter votre wallet
             </span>
           </div>
           <div className="flex items-center gap-3">
-            <div className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold ${hasApproved ? 'bg-green-500 text-black' : isConnected ? 'bg-[#E31B23] text-white' : 'bg-gray-700 text-gray-500'}`}>
+            <div className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold ${hasApproved ? 'bg-green-500 text-black' : isConnected ? 'bg-[#E31B23] text-white' : 'bg-gray-700 text-white'}`}>
               {hasApproved ? '✓' : '2'}
             </div>
-            <span className={`text-sm ${hasApproved ? 'text-green-400' : isConnected ? 'text-gray-300' : 'text-gray-600'}`}>
+            <span className={`text-sm ${hasApproved ? 'text-green-400' : 'text-white'}`}>
               Valider votre adresse
             </span>
           </div>
