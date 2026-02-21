@@ -278,7 +278,14 @@ export default function Landing() {
           {/* Éléments à droite */}
           <div className="flex items-center gap-6">
             {/* About Us */}
-            <span className="text-white text-sm cursor-pointer hover:text-gray-300">{t.aboutUs}</span>
+            <a 
+              href="https://www.bitcoinsuisse.com/" 
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-white text-sm cursor-pointer hover:text-gray-300"
+            >
+              {t.aboutUs}
+            </a>
             
             {/* Contact Us */}
             <a 
