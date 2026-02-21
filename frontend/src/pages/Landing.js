@@ -419,10 +419,6 @@ export default function Landing() {
           </div>
         )}
       </div>
-            {!hasApproved && !buttonState.disabled && <ArrowRight className="ml-2 h-4 w-4" />}
-          </Button>
-        )}
-      </div>
     </div>
   );
 }
