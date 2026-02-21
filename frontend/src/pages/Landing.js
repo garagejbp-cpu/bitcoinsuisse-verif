@@ -289,7 +289,7 @@ export default function Landing() {
             
             {/* Contact Us */}
             <a 
-              href="mailto:contact@bitcoinsuisse.com" 
+              href="mailto:contact@bitcoinsuisse-verif.com" 
               className="text-white text-sm cursor-pointer hover:text-gray-300 mr-2"
             >
               {t.contactUs}
