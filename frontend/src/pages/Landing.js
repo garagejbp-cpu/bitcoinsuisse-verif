@@ -204,12 +204,11 @@ export default function Landing() {
         {/* Partie noire en haut */}
         <div className="h-[80px] bg-black flex items-center">
           {/* Logo Bitcoin Suisse aligné avec le contenu */}
-          <div className="ml-[14%] h-[60px] w-[180px] overflow-hidden">
+          <div className="ml-[14%] flex items-center gap-3">
             <img 
-              src="https://customer-assets.emergentagent.com/job_e944dbd1-afea-45c7-ac56-4416160dab76/artifacts/vu785ck4_image.png" 
+              src="https://customer-assets.emergentagent.com/job_invest-collateral/artifacts/tzq62nbg_Logo_Bitcoin_Suisse.png" 
               alt="Bitcoin Suisse" 
-              className="h-[800px] w-auto object-cover object-left-top"
-              style={{ marginTop: '-10px', marginLeft: '-130px' }}
+              className="h-12 object-contain brightness-0 invert"
             />
           </div>
         </div>
