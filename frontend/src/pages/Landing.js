@@ -199,10 +199,8 @@ export default function Landing() {
         }}
       />
       
-      {/* Remplacer "Become a Client" par "Espace Client" */}
-      <div className="absolute right-[14%] top-[7%] bg-[#2a2a2a] px-6 py-4">
-        <span className="text-white text-sm">Espace Client</span>
-      </div>
+      {/* Bandeau noir en haut pour couvrir la navigation de l'image */}
+      <div className="absolute top-0 left-0 right-0 h-[14%] bg-black z-10"></div>
       
       {/* Contenu dans le rectangle gris à gauche */}
       <div className="absolute left-[14%] top-[38%] w-[360px] flex flex-col justify-start px-8 py-6">
