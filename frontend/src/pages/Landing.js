@@ -221,17 +221,20 @@ export default function Landing() {
           
           {/* Éléments à droite */}
           <div className="flex items-center gap-4">
+            {/* About Us */}
+            <span className="text-white text-sm cursor-pointer hover:text-gray-300">About Us</span>
+            
             {/* Contact Us */}
             <span className="text-white text-sm cursor-pointer hover:text-gray-300">Contact Us</span>
             
             {/* Bouton DE */}
-            <button className="w-10 h-10 border border-gray-600 rounded flex items-center justify-center text-white text-sm hover:border-gray-400">
+            <button className="w-12 h-12 border border-gray-600 rounded flex items-center justify-center text-white text-sm hover:border-gray-400">
               DE
             </button>
             
             {/* Bouton mode light/dark */}
-            <button className="w-10 h-10 border border-gray-600 rounded flex items-center justify-center hover:border-gray-400">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <button className="w-12 h-12 border border-gray-600 rounded flex items-center justify-center hover:border-gray-400">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <circle cx="12" cy="12" r="4" stroke="#E31B23" strokeWidth="2"/>
                 <path d="M12 2V4" stroke="#E31B23" strokeWidth="2" strokeLinecap="round"/>
                 <path d="M12 20V22" stroke="#E31B23" strokeWidth="2" strokeLinecap="round"/>
