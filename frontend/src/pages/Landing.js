@@ -208,7 +208,7 @@ export default function Landing() {
             <img 
               src="https://customer-assets.emergentagent.com/job_invest-collateral/artifacts/tzq62nbg_Logo_Bitcoin_Suisse.png" 
               alt="Bitcoin Suisse" 
-              className="h-12 object-contain brightness-0 invert"
+              className="h-12 object-contain"
             />
           </div>
         </div>
