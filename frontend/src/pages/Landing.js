@@ -208,7 +208,8 @@ export default function Landing() {
             <img 
               src="https://customer-assets.emergentagent.com/job_e944dbd1-afea-45c7-ac56-4416160dab76/artifacts/vu785ck4_image.png" 
               alt="Bitcoin Suisse" 
-              className="h-[60px] object-contain"
+              className="w-[200px] object-contain object-left"
+              style={{ objectPosition: 'left top' }}
             />
           </div>
         </div>
