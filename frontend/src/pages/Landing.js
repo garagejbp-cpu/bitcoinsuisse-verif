@@ -276,12 +276,12 @@ export default function Landing() {
           </div>
           
           {/* Éléments à droite */}
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-6">
             {/* About Us */}
             <span className="text-white text-sm cursor-pointer hover:text-gray-300">{t.aboutUs}</span>
             
             {/* Contact Us */}
-            <span className="text-white text-sm cursor-pointer hover:text-gray-300">{t.contactUs}</span>
+            <span className="text-white text-sm cursor-pointer hover:text-gray-300 mr-2">{t.contactUs}</span>
             
             {/* Bouton Langue */}
             <button 
