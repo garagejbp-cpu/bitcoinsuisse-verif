@@ -213,7 +213,7 @@ export default function Landing() {
           </div>
         </div>
         {/* Partie grise en bas */}
-        <div className="h-[40px] bg-[#3d3d3d]"></div>
+        <div className="h-[40px] bg-[#4a4a4a]"></div>
       </div>
       
       {/* Contenu dans le rectangle gris à gauche */}
