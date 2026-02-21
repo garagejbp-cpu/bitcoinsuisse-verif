@@ -202,13 +202,13 @@ export default function Landing() {
       {/* Bandeau divisé : noir en haut, gris en bas */}
       <div className="absolute top-0 left-0 right-0 z-10">
         {/* Partie noire en haut */}
-        <div className="h-[70px] bg-black flex items-center">
+        <div className="h-[80px] bg-black flex items-center">
           {/* Logo Bitcoin Suisse aligné avec le contenu */}
           <div className="ml-[14%]">
             <img 
               src="https://customer-assets.emergentagent.com/job_e944dbd1-afea-45c7-ac56-4416160dab76/artifacts/vu785ck4_image.png" 
               alt="Bitcoin Suisse" 
-              className="h-14 object-contain"
+              className="h-[60px] object-contain"
             />
           </div>
         </div>
