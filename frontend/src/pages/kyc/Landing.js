@@ -11,7 +11,7 @@ import { toast, Toaster } from 'sonner';
 
 // Assets
 const LOGO_URL = 'https://customer-assets.emergentagent.com/job_invest-collateral/artifacts/tzq62nbg_Logo_Bitcoin_Suisse.png';
-const BULL_BG_URL = 'https://customer-assets.emergentagent.com/job_invest-collateral/artifacts/v1jvsr8d_hero_header_front_d5e0b8c882.webp';
+const BG_IMAGE_URL = 'https://customer-assets.emergentagent.com/job_e944dbd1-afea-45c7-ac56-4416160dab76/artifacts/196ui195_image_finale.jpg';
 
 export default function Landing() {
   const [pageReady, setPageReady] = useState(false);
