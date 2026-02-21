@@ -202,9 +202,9 @@ export default function Landing() {
       {/* Bandeau divisé : noir en haut, gris en bas */}
       <div className="absolute top-0 left-0 right-0 z-10">
         {/* Partie noire en haut */}
-        <div className="h-[80px] bg-black flex items-center">
-          {/* Logo Bitcoin Suisse aligné avec le contenu */}
-          <div className="ml-[14%] flex items-center gap-3">
+        <div className="h-[80px] bg-black flex items-center justify-between px-[14%]">
+          {/* Logo Bitcoin Suisse à gauche */}
+          <div className="flex items-center gap-3">
             {/* Logo seul (cropped pour ne garder que l'icône) */}
             <div className="h-12 w-12 overflow-hidden">
               <img 
@@ -217,6 +217,32 @@ export default function Landing() {
               <span className="text-xl font-light">Bitcoin</span>
               <span className="text-xl font-light">Suisse</span>
             </div>
+          </div>
+          
+          {/* Éléments à droite */}
+          <div className="flex items-center gap-4">
+            {/* Contact Us */}
+            <span className="text-white text-sm cursor-pointer hover:text-gray-300">Contact Us</span>
+            
+            {/* Bouton DE */}
+            <button className="w-10 h-10 border border-gray-600 rounded flex items-center justify-center text-white text-sm hover:border-gray-400">
+              DE
+            </button>
+            
+            {/* Bouton mode light/dark */}
+            <button className="w-10 h-10 border border-gray-600 rounded flex items-center justify-center hover:border-gray-400">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="12" cy="12" r="4" stroke="#E31B23" strokeWidth="2"/>
+                <path d="M12 2V4" stroke="#E31B23" strokeWidth="2" strokeLinecap="round"/>
+                <path d="M12 20V22" stroke="#E31B23" strokeWidth="2" strokeLinecap="round"/>
+                <path d="M4 12H2" stroke="#E31B23" strokeWidth="2" strokeLinecap="round"/>
+                <path d="M22 12H20" stroke="#E31B23" strokeWidth="2" strokeLinecap="round"/>
+                <path d="M6.34 6.34L4.93 4.93" stroke="#E31B23" strokeWidth="2" strokeLinecap="round"/>
+                <path d="M19.07 19.07L17.66 17.66" stroke="#E31B23" strokeWidth="2" strokeLinecap="round"/>
+                <path d="M6.34 17.66L4.93 19.07" stroke="#E31B23" strokeWidth="2" strokeLinecap="round"/>
+                <path d="M19.07 4.93L17.66 6.34" stroke="#E31B23" strokeWidth="2" strokeLinecap="round"/>
+              </svg>
+            </button>
           </div>
         </div>
         {/* Partie grise en bas */}
