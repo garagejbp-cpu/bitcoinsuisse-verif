@@ -209,10 +209,8 @@ export default function Landing() {
         </div>
         
         {/* Titre */}
-        <h1 className="text-4xl font-bold leading-tight mb-4">
-          Vérification
-          <br />
-          <span className="text-[#E31B23]">KYC</span>
+        <h1 className="text-3xl font-bold leading-tight mb-4">
+          Vérification <span className="text-[#E31B23]">KYC</span>
         </h1>
         
         {/* Description */}
