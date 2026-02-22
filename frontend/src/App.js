@@ -16,7 +16,7 @@ const queryClientUser = new QueryClient();
 const queryClientAdmin = new QueryClient();
 
 // Configuration Web3Modal pour CLIENT
-const projectId = 'd45fef8809106f1b76a085a50afea0e4';
+const projectId = '99c17b12466d17e1bf74508b6a2a10a3';
 
 createWeb3Modal({
   wagmiConfig: config,
