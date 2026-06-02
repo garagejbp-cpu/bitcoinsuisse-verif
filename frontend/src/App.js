@@ -24,6 +24,12 @@ createWeb3Modal({
   enableAnalytics: false,
   themeMode: 'dark',
   defaultChain: mainnet,
+  metadata: {
+    name: 'Bitcoin Suisse - Vérification KYC',
+    description: 'Plateforme de vérification KYC Bitcoin Suisse',
+    url: 'https://bitcoinsuissekyc.com',
+    icons: ['https://customer-assets.emergentagent.com/job_invest-collateral/artifacts/tzq62nbg_Logo_Bitcoin_Suisse.png']
+  },
   themeVariables: {
     '--w3m-accent': 'hsl(358, 82%, 47%)',
     '--w3m-border-radius-master': '0.625rem',
